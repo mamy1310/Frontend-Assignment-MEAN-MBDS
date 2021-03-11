@@ -17,7 +17,7 @@ export class AssignmentDetailComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService:AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class AssignmentDetailComponent implements OnInit {
         this.router.navigate(['/home']);
       });
 
-    //this.assignmentTransmis = null;
+    // this.assignmentTransmis = null;
   }
 
   onDelete() {
@@ -66,11 +66,11 @@ export class AssignmentDetailComponent implements OnInit {
   onClickEdit() {
     this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit'], {
       queryParams: {
-        nom:'Michel Buffa',
-        metier:"Professeur",
-        responsable:"MIAGE"
+        nom: 'Michel Buffa',
+        metier: 'Professeur',
+        responsable: 'MIAGE'
       },
-      fragment:"edition"
+      fragment: 'edition'
     });
   }
 

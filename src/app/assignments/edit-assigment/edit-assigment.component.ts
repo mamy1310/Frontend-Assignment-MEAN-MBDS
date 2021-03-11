@@ -9,10 +9,10 @@ import { Assignment } from '../assignment.model';
   styleUrls: ['./edit-assigment.component.css']
 })
 export class EditAssigmentComponent implements OnInit {
-  assignment:Assignment;
+  assignment: Assignment;
 
   // pour le formulaire
-  nom = "";
+  nom = '';
   dateDeRendu = null;
 
   constructor(
@@ -49,7 +49,7 @@ export class EditAssigmentComponent implements OnInit {
 
   onSubmit(event) {
     // on va modifier l'assignment
-    if((!this.nom) || (!this.dateDeRendu)) return;
+    if ((!this.nom) || (!this.dateDeRendu)) { return; }
 
     this.assignment.nom = this.nom;
     this.assignment.dateDeRendu = this.dateDeRendu;
@@ -59,8 +59,8 @@ export class EditAssigmentComponent implements OnInit {
         console.log(message);
 
         // et on navigue vers la page d'accueil
-        this.router.navigate(["/home"]);
-      })
+        this.router.navigate(['/home']);
+      });
 
   }
 }
