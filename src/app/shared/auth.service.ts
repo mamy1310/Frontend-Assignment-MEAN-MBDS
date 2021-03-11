@@ -14,7 +14,7 @@ export class AuthService {
     // vérifier qu'ils sont ok, et si oui, positionner la propriété loggedIn à true
     // si login/password non valides, positionner à false;
 
-    if (login === 'admin') this.admin = true;
+    if (login === 'admin') { this.admin = true; }
 
     this.loggedIn = true;
   }

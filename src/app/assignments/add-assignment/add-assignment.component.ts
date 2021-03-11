@@ -13,15 +13,15 @@ export class AddAssignmentComponent implements OnInit {
   nom = '';
   dateDeRendu = null;
 
-  constructor(private assignmentsService:AssignmentsService,
-              private router:Router) {}
+  constructor(private assignmentsService: AssignmentsService,
+              private router: Router) {}
 
   ngOnInit(): void {}
 
   onSubmit(event) {
-    if((!this.nom) || (!this.dateDeRendu)) return;
+    if ((!this.nom) || (!this.dateDeRendu)) { return; }
 
-    let nouvelAssignment = new Assignment();
+    const nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.nom;
     nouvelAssignment.dateDeRendu = this.dateDeRendu;
     nouvelAssignment.rendu = false;
@@ -31,7 +31,7 @@ export class AddAssignmentComponent implements OnInit {
         console.log(reponse.message);
 
          // et on navigue vers la page d'accueil qui affiche la liste
-         this.router.navigate(["/home"]);
+        this.router.navigate(['/home']);
       });
   }
 
