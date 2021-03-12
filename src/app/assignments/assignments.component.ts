@@ -1,19 +1,22 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
   styleUrls: ['./assignments.component.css'],
 })
-export class AssignmentsComponent implements OnInit {
-  assignments: Assignment[];
+export class AssignmentsComponent implements OnInit, AfterViewInit {
+  // assignments: Assignment[];
+  assignmentsRendu: Assignment[];
+  assignmentsNonRendu: Assignment[];
   page = 1;
-  limit = 100;
+  limit = 30;
   totalDocs: number;
   totalPages: number;
   hasPrevPage: boolean;
@@ -22,6 +25,8 @@ export class AssignmentsComponent implements OnInit {
   nextPage: number;
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
+  @ViewChild('scrollerNonRendu') scrollerNonRendu: CdkVirtualScrollViewport;
+  @ViewChild('matTabGroup') matTab: MatTab;
 
   // on injecte le service de gestion des assignments
   constructor(
@@ -31,24 +36,22 @@ export class AssignmentsComponent implements OnInit {
     private ngZone: NgZone
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log('AVANT AFFICHAGE');
     // on regarde s'il y a page= et limit = dans l'URL
-    this.route.queryParams.subscribe((queryParams) => {
-      console.log('Dans le subscribe des queryParams');
-      this.page = +queryParams.page || 1;
-      this.limit = +queryParams.limit || 10;
-
-      this.getAssignments();
-    });
-    console.log('getAssignments() du service appelé');
+    this.getAssignments(true);
+    this.getAssignments(false);
   }
 
-  getAssignments() {
+  getAssignments(rendu: boolean): void {
     this.assignmentsService
-      .getAssignmentsPagine(this.page, this.limit)
+      .getAssignmentsPagine(this.page, this.limit, rendu)
       .subscribe((data) => {
-        this.assignments = data.docs;
+        if (rendu) {
+          this.assignmentsRendu = data.docs;
+        } else {
+          this.assignmentsNonRendu = data.docs;
+        }
         this.page = data.page;
         this.limit = data.limit;
         this.totalDocs = data.totalDocs;
@@ -61,14 +64,17 @@ export class AssignmentsComponent implements OnInit {
       });
   }
 
-  getPlusDAssignmentsPourScrolling() {
+  getPlusDAssignmentsPourScrolling(rendu: boolean): void {
     this.assignmentsService
-      .getAssignmentsPagine(this.page, this.limit)
+      .getAssignmentsPagine(this.page, this.limit, rendu)
       .subscribe((data) => {
         // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
         // on va les ajouter à ceux déjà présents...
-        this.assignments = this.assignments.concat(data.docs);
-        // this.assignments = [...this.assignments, ...data.docs];
+        if (rendu) {
+          this.assignmentsRendu = this.assignmentsRendu.concat(data.docs);
+        } else {
+          this.assignmentsNonRendu = this.assignmentsNonRendu.concat(data.docs);
+        }
         this.page = data.page;
         this.limit = data.limit;
         this.totalDocs = data.totalDocs;
@@ -81,46 +87,32 @@ export class AssignmentsComponent implements OnInit {
       });
   }
 
-  ngAfterViewInit() {
-    // Appelé automatiquement après l'affichage, donc l'élément scroller aura
-    // et affiché et ne vaudra pas "undefined" (ce qui aurait été le cas dans ngOnInit)
+  ngAfterViewInit(): void {
+    this.loadScrollerListener(this.scroller, true);
+    this.loadScrollerListener(this.scrollerNonRendu, false);
+  }
 
-    // On va s'abonner aux évenements de scroll sur le scrolling...
-    this.scroller
-      .elementScrolled()
+  loadScrollerListener(scroller: CdkVirtualScrollViewport, rendu): void {
+    scroller.elementScrolled()
       .pipe(
         map((event) => {
-          return this.scroller.measureScrollOffset('bottom');
+          return scroller.measureScrollOffset('bottom');
         }),
         pairwise(),
-        /*
-        tap(([y1, y2]) => {
-          if(y2 < y1) {
-            console.log("ON SCROLLE VERS LE BAS !")
-          } else {
-            console.log("ON SCROLLE VERS LE HAUT !")
-          }
-        }),
-        */
         filter(([y1, y2]) => y2 < y1 && y2 < 200),
-        throttleTime(200) // on ne va en fait envoyer le dernier événement que toutes les 200ms.
-        // on va ignorer tous les évéments arrivés et ne garder que le dernier toutes
-        // les 200ms
+        throttleTime(200)
       )
       .subscribe((dist) => {
         this.ngZone.run(() => {
           if (this.hasNextPage) {
             this.page = this.nextPage;
-            console.log(
-              'Je charge de nouveaux assignments page = ' + this.page
-            );
-            this.getPlusDAssignmentsPourScrolling();
+            this.getPlusDAssignmentsPourScrolling(rendu);
           }
         });
       });
   }
 
-  onDeleteAssignment(event) {
+  onDeleteAssignment(event): void {
     // event = l'assignment à supprimer
 
     // this.assignments.splice(index, 1);
@@ -129,7 +121,7 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  premierePage() {
+  premierePage(): void {
     this.router.navigate(['/home'], {
       queryParams: {
         page: 1,
@@ -138,7 +130,7 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  pageSuivante() {
+  pageSuivante(): void {
     /*
     this.page = this.nextPage;
     this.getAssignments();*/
@@ -150,7 +142,7 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  pagePrecedente() {
+  pagePrecedente(): void {
     this.router.navigate(['/home'], {
       queryParams: {
         page: this.prevPage,
@@ -159,12 +151,17 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  dernierePage() {
+  dernierePage(): void {
     this.router.navigate(['/home'], {
       queryParams: {
         page: this.totalPages,
         limit: this.limit,
       },
     });
+  }
+
+  onTabChanged(event): void {
+    this.page = 1;
+    this.getAssignments(event === 0);
   }
 }
