@@ -14,8 +14,8 @@ export class AssignmentsService {
 
   constructor(private loggingService: LoggingService, private http: HttpClient) { }
 
-  // uri = 'http://localhost:8010/api/assignments';
-  uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/assignments';
+   uri = 'http://localhost:8010/api/assignments';
+ // uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/assignments';
 
   getAssignments(): Observable<Assignment[]> {
     console.log('Dans le service de gestion des assignments...');
@@ -130,7 +130,7 @@ export class AssignmentsService {
   // ont été effectués
   peuplerBDAvecForkJoin(): Observable<any> {
     const appelsVersAddAssignment = [];
-
+    console.log("Peuplement bd");
     assignmentsGeneres.forEach((a) => {
       const nouvelAssignment = new Assignment();
 
@@ -138,7 +138,13 @@ export class AssignmentsService {
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
-
+      const listeProfs = [{nom: 'Buffa', image: 'buffa.jpg'}, {nom: 'Grin', image: 'grin.jpg'}, {nom: 'Pasquier', image: 'pasquier.jpg'}, {nom: 'Miranda', image: 'miranda.jpg'}, {nom: 'Mopolo', image: 'mopolo.jpg'}];
+      // tslint:disable-next-line:max-line-length
+      const matieres = [{nom: 'MEAN', image: 'mean.jpg'}, {nom: 'JEE', image: 'jee.jpg'}, {nom: 'R', image: 'r.jpg'}, {nom: 'Big data', image: 'big_data.jpg'}, {nom: 'Oracle', image: 'oracle.jpg'}];
+      const random = Math.floor(Math.random() * 5);
+      // tslint:disable-next-line:max-line-length
+      nouvelAssignment.matiere = {nom: matieres[random].nom, image: matieres[random].image, nom_prof: listeProfs[random].nom, photo_prof: listeProfs[random].image};
+     // console.log(nouvelAssignment.matiere);
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });
     return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
