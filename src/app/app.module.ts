@@ -26,33 +26,35 @@ import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigm
 import { AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatTabsModule} from '@angular/material/tabs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-const routes:Routes = [
+const routes: Routes = [
   {
     // indique que http://localhost:4200 sans rien ou avec un "/" à la fin
     // doit afficher le composant AssignmentsComponent (celui qui affiche la liste)
-    path:"",
-    component:AssignmentsComponent
+    path: '',
+    component: AssignmentsComponent
   },
   {
     // idem avec  http://localhost:4200/home
-    path:"home",
-    component:AssignmentsComponent
+    path: 'home',
+    component: AssignmentsComponent
   },
   {
-    path:"add",
-    component:AddAssignmentComponent
+    path: 'add',
+    component: AddAssignmentComponent
   },
   {
-    path:"assignment/:id",
-    component:AssignmentDetailComponent
+    path: 'assignment/:id',
+    component: AssignmentDetailComponent
   },
   {
-    path:"assignment/:id/edit",
-    component:EditAssigmentComponent,
+    path: 'assignment/:id/edit',
+    component: EditAssigmentComponent,
     canActivate : [AuthGuard]
   }
-]
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,8 +72,8 @@ const routes:Routes = [
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
-    MatSlideToggleModule,
-    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule
+    MatSlideToggleModule, MatTabsModule,
+    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

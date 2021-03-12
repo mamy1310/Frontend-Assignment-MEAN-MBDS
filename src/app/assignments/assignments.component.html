@@ -6,27 +6,59 @@
   </a>
   <h1>Liste des assignments (scrolling infini)</h1>
   <mat-divider></mat-divider>
-  
-  <cdk-virtual-scroll-viewport #scroller itemSize="50" class="example-viewport" class="example-viewport">
-    <mat-list *cdkVirtualFor="let a of assignments">
-      <nav>
-        <a routerLink="/assignment/{{a.id}}">
-          <h3 mat-subheader>{{a.dateDeRendu | date}}</h3>
-          <mat-list-item class="example-item">
-            <mat-divider></mat-divider>
 
-            <p *ngIf="a.rendu; else nonsoumis" appRendu>
-              {{a.nom}}, rendu par l'élève.
-            </p>
-            <ng-template #nonsoumis>
-              <p appNonRendu>
-                {{a.nom}}, non encore rendu par l'élève.
-              </p>
-            </ng-template>
+  <mat-tab-group (selectedIndexChange)="onTabChanged($event)">
+    <mat-tab label="Rendu">
+      <div class="row bg-dark text-light" style="height: 60px; padding-top: 20px">
+        <div class="col-md-4 h5 pl-4">Nom</div>
+        <div class="col-md-3 h5 p-0">Matière</div>
+        <div class="col-md-2 h5 p-0">Note</div>
+        <div class="col-md-3 h5 p-0">Professeur</div>
+      </div>
+      <cdk-virtual-scroll-viewport #scroller class="example-viewport" itemSize="50">
+        <mat-list  *cdkVirtualFor="let a of assignmentsRendu">
+          <nav>
+            <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
 
-          </mat-list-item>
-        </a>
-      </nav>
-    </mat-list>
-  </cdk-virtual-scroll-viewport>
+              <mat-list-item class="row">
+                <mat-divider></mat-divider>
+                <div class="col-md-4 pl-2">{{a.nom}}</div>
+                <div class="col-md-3">{{a.matiere.nom}}</div>
+                <div class="col-md-2">{{a.matiere.note || 0}}</div>
+                <div class="col-md-3 ml-3">{{a.matiere.nom_prof}}</div>
+              </mat-list-item>
+            </a>
+          </nav>
+        </mat-list>
+      </cdk-virtual-scroll-viewport>
+    </mat-tab>
+
+
+
+
+    <mat-tab label="Non rendu">
+        <div class="row bg-dark text-light" style="height: 60px; padding-top: 20px">
+          <div class="col-md-4 h5 pl-4">Nom</div>
+          <div class="col-md-3 h5 p-0">Matière</div>
+          <div class="col-md-2 h5 p-0">Date de rendu</div>
+          <div class="col-md-3 h5 p-0">Professeur</div>
+        </div>
+        <cdk-virtual-scroll-viewport #scrollerNonRendu class="example-viewport" itemSize="50">
+          <mat-list  *cdkVirtualFor="let a of assignmentsNonRendu">
+            <nav>
+              <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
+
+                <mat-list-item class="row">
+                  <mat-divider></mat-divider>
+                  <div class="col-md-4 pl-2">{{a.nom}}</div>
+                  <div class="col-md-3">{{a.matiere.nom}}</div>
+                  <div class="col-md-2 text-danger">{{a.dateDeRendu | date}}</div>
+                  <div class="col-md-3 ml-3">{{a.matiere.nom_prof}}</div>
+                </mat-list-item>
+              </a>
+            </nav>
+          </mat-list>
+        </cdk-virtual-scroll-viewport>
+    </mat-tab>
+  </mat-tab-group>
 </main>
