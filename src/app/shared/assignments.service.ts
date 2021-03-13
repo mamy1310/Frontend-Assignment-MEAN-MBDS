@@ -147,11 +147,11 @@ export class AssignmentsService {
         {nom: 'Mopolo', image: 'mopolo.jpg'}
       ];
       const matieres = [
-        {nom: 'MEAN', image: 'mean.jpg'},
-        {nom: 'JEE', image: 'jee.jpg'},
-        {nom: 'R', image: 'r.jpg'},
-        {nom: 'Big data', image: 'big_data.jpg'},
-        {nom: 'Oracle', image: 'oracle.jpg'}
+        {nom: 'MEAN', image: 'mean.svg'},
+        {nom: 'JEE', image: 'jee.png'},
+        {nom: 'R', image: 'r.png'},
+        {nom: 'Big data', image: 'big_data.png'},
+        {nom: 'Oracle', image: 'oracle.png'}
       ];
       const random = Math.floor(Math.random() * 5);
       nouvelAssignment.matiere = {
