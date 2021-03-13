@@ -14,8 +14,8 @@ export class AuthService {
   @Output() adminEvent:EventEmitter<any> =new EventEmitter<any>();
   constructor(private http: HttpClient) {}
 
-   uri = 'http://localhost:8010/api/';
-  // uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/';
+  // uri = 'http://localhost:8010/api/';
+   uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/';
   login(user: User): Observable<any> {
     // this.loggingService.log(assignment.nom, " a été ajouté");
 
