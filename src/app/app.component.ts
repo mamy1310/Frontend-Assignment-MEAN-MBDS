@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { User } from './login/user.model';
 import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
 
@@ -10,24 +11,42 @@ import { AuthService } from './shared/auth.service';
 })
 export class AppComponent {
   title = 'Application de gestion des assignments';
-
+  isLogin = false;
+  admin:User;
   constructor(private authService:AuthService, private router:Router,
-              private assignmentsService:AssignmentsService) {}
-
-  login() {
-    // si je suis pas loggé, je me loggue, sinon, si je suis
-    // loggé je me déloggue et j'affiche la page d'accueil
-
-    if(this.authService.loggedIn) {
-      // je suis loggé
-      // et bien on se déloggue
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(["/home"]);
-    } else {
-      // je ne suis pas loggé, je me loggue
-      this.authService.logIn("admin", "toto");
+              private assignmentsService:AssignmentsService) {
+                router.events.forEach((event) => {
+                  if(event instanceof NavigationStart) {
+                      this.isLogin = event.url == '/login';
+                  }
+                });
     }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnInit(): void {
+    console.log('Check user');
+    this.authService.getUserByToken().subscribe(reponse => {
+      console.log(reponse);
+      if (reponse.name){
+         const admin = new User();
+         admin.nom = reponse.name;
+         this.authService.admin = admin;
+         this.admin = admin;
+      }
+    }, error => {
+      console.log(error);
+      this.authService.logOut();
+    });
+  }
+  // tslint:disable-next-line:typedef
+  login() {
+
+      this.router.navigate(["/login"]);
+  }
+  // tslint:disable-next-line:typedef
+  logout() {
+    this.authService.logOut();
+    this.router.navigate(["/home"]);
   }
 
   peuplerBD() {
@@ -40,5 +59,8 @@ export class AppComponent {
         console.log("LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE");
         this.router.navigate(["/home"], {replaceUrl:true});
       })
+  }
+  isAdmin(){
+    return this.authService.isAdmin();
   }
 }

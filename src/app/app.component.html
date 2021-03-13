@@ -1,10 +1,17 @@
-<h1>
-  <nav>
-    <a routerLink="/home">{{title}}</a>
-  </nav>
-</h1>
-<mat-slide-toggle (click)="login()">Log me!</mat-slide-toggle>
-<button mat-stroked-button color="primary" (click)="peuplerBD()">PeuplerBD</button>
+<div *ngIf="!isLogin">
 
+
+<h1>
+<nav>
+  <a routerLink="/home">{{title}}</a>
+</nav>
+</h1>
+<mat-button *ngIf="!isAdmin()" (click)="login()">Log me!</mat-button>
+<div *ngIf="isAdmin()">
+  <p>{{this.admin.nom}}</p>
+  <mat-button  (click)="logout()">Logout</mat-button>
+</div>
+<button mat-stroked-button color="primary" (click)="peuplerBD()">PeuplerBD</button>
+</div>
 <!-- Indique qu'on affichera le composant qui correspond à l'URL courant -->
 <router-outlet></router-outlet>
