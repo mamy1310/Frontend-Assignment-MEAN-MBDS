@@ -1,0 +1,52 @@
+<html>
+<body>
+<div id="login">
+    <div class="container">
+        <header>Sign in</header>
+
+       
+            <div class="error_message">{{error_message}}</div>
+        
+
+        <form ngForm #formLogin class="form" (submit)="onSubmit($event); formLogin.reset();">
+            <div class="input-field">
+                <input  type="text" class="text_" required [(ngModel)]="username" name="username" id="username" autocapitalize="none"/>
+
+                <label for="username">Email:</label>
+            </div>
+
+            <div class="input-field">
+                <input type="password" required [(ngModel)]="password" class="pswrd" name="password" id="password"/>
+
+                <label for="password">Password:</label>
+                <span class="show">SHOW</span>
+            </div>
+
+           
+
+            <div class="button">
+                <div class="inner">
+                </div>
+                <input type="submit" id="submit" value="Sign in"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var input = document.querySelector('.pswrd');
+    var show = document.querySelector('.show');
+    show.addEventListener('click', active);
+    function active(){
+        if(input.type === "password"){
+            input.type = "text";
+            show.style.color = "#1DA1F2";
+            show.textContent = "HIDE";
+        }else{
+            input.type = "password";
+            show.textContent = "SHOW";
+            show.style.color = "#111";
+        }
+    }
+</script>
+</body>
+</html>

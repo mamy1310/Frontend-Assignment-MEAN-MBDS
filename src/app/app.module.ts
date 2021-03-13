@@ -28,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {NgxSpinnerModule} from "ngx-spinner";
+import {NgxSpinnerModule} from 'ngx-spinner';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
     path: 'assignment/:id/edit',
     component: EditAssigmentComponent,
     canActivate : [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 @NgModule({
@@ -64,7 +69,8 @@ const routes: Routes = [
     NonRenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssigmentComponent
+    EditAssigmentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
