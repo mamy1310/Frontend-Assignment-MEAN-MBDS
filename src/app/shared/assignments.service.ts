@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
-import { Assignment } from '../assignments/assignment.model';
-import { LoggingService } from './logging.service';
-import { assignmentsGeneres } from './data';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {forkJoin, Observable, of} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
+import {Assignment} from '../assignments/assignment.model';
+import {LoggingService} from './logging.service';
+import {assignmentsGeneres} from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AssignmentsService {
 
   constructor(private loggingService: LoggingService, private http: HttpClient) { }
 
-  // uri = 'http://localhost:8010/api/assignments';
+   //uri = 'http://localhost:8010/api/assignments';
   uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/assignments';
 
   getAssignments(): Observable<Assignment[]> {
@@ -147,11 +147,11 @@ export class AssignmentsService {
         {nom: 'Mopolo', image: 'mopolo.jpg'}
       ];
       const matieres = [
-        {nom: 'MEAN', image: 'mean.jpg'},
-        {nom: 'JEE', image: 'jee.jpg'},
-        {nom: 'R', image: 'r.jpg'},
-        {nom: 'Big data', image: 'big_data.jpg'},
-        {nom: 'Oracle', image: 'oracle.jpg'}
+        {nom: 'MEAN', image: 'mean.svg'},
+        {nom: 'JEE', image: 'jee.png'},
+        {nom: 'R', image: 'r.png'},
+        {nom: 'Big data', image: 'big_data.png'},
+        {nom: 'Oracle', image: 'oracle.png'}
       ];
       const random = Math.floor(Math.random() * 5);
       nouvelAssignment.matiere = {
@@ -160,6 +160,7 @@ export class AssignmentsService {
         nom_prof: listeProfs[random].nom,
         photo_prof: listeProfs[random].image
       };
+      nouvelAssignment.note = a.rendu ? Math.floor(Math.random() * 20) : null;
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });
     return forkJoin(appelsVersAddAssignment);

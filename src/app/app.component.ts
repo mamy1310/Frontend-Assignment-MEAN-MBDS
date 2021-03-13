@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { User } from './login/user.model';
 import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -9,36 +11,52 @@ import { AuthService } from './shared/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  loading = false;
   title = 'Application de gestion des assignments';
-
+  isLogin = false;
+  isAdmin=false;
+  admin:User;
   constructor(private authService:AuthService, private router:Router,
-              private assignmentsService:AssignmentsService) {}
-
-  login() {
-    // si je suis pas loggé, je me loggue, sinon, si je suis
-    // loggé je me déloggue et j'affiche la page d'accueil
-
-    if(this.authService.loggedIn) {
-      // je suis loggé
-      // et bien on se déloggue
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(["/home"]);
-    } else {
-      // je ne suis pas loggé, je me loggue
-      this.authService.logIn("admin", "toto");
+              private assignmentsService:AssignmentsService,private spinner: NgxSpinnerService) {
+                router.events.forEach((event) => {
+                  if(event instanceof NavigationStart) {
+                      this.isLogin = event.url == '/login';
+                  }
+                });
     }
+
+  ngOnInit(){
+    this.authService.checkUser();
+    this.authService.getEmitted()
+      .subscribe(item => this.isAdmin = item)
+  }
+  ngAfterViewInit(): void{
+    console.log("View init");
+  }
+  // tslint:disable-next-line:typedef
+  login() {
+
+      this.router.navigate(["/login"]);
+  }
+  // tslint:disable-next-line:typedef
+  logout() {
+    this.authService.logOut();
+    this.router.navigate(["/home"]);
   }
 
-  peuplerBD() {
+  peuplerBD(): void {
     // version naive et simple
-    //this.assignmentsService.peuplerBD();
+    // this.assignmentsService.peuplerBD();
 
     // meilleure version :
+    this.spinner.show();
     this.assignmentsService.peuplerBDAvecForkJoin()
       .subscribe(() => {
-        console.log("LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE");
-        this.router.navigate(["/home"], {replaceUrl:true});
-      })
+        console.log('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE');
+        this.router.navigate(['/home'], {replaceUrl: true});
+        this.spinner.hide();
+      });
   }
+  
 }
