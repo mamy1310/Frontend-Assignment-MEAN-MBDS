@@ -1,10 +1,15 @@
-<h1>
-  <nav>
+<ngx-spinner
+  size="medium"
+  type="line-scale-party"
+>
+</ngx-spinner>
+<nav>
+  <h1>
     <a routerLink="/home">{{title}}</a>
-  </nav>
-</h1>
+  </h1>
+</nav>
 <mat-slide-toggle (click)="login()">Log me!</mat-slide-toggle>
-<button mat-stroked-button color="primary" (click)="peuplerBD()">PeuplerBD</button>
+<button mat-stroked-button color="primary" (click)="peuplerBD()" class="ml-2">Peupler BD</button>
 
 <!-- Indique qu'on affichera le composant qui correspond à l'URL courant -->
 <router-outlet></router-outlet>

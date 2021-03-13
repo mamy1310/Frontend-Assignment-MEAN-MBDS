@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgxSpinnerModule} from "ngx-spinner";
 
 const routes: Routes = [
   {
@@ -73,7 +74,8 @@ const routes: Routes = [
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
     MatSlideToggleModule, MatTabsModule,
-    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, NgbModule
+    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, NgbModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

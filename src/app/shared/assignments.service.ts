@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
-import { Assignment } from '../assignments/assignment.model';
-import { LoggingService } from './logging.service';
-import { assignmentsGeneres } from './data';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {forkJoin, Observable, of} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
+import {Assignment} from '../assignments/assignment.model';
+import {LoggingService} from './logging.service';
+import {assignmentsGeneres} from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -160,6 +160,7 @@ export class AssignmentsService {
         nom_prof: listeProfs[random].nom,
         photo_prof: listeProfs[random].image
       };
+      nouvelAssignment.note = Math.floor(Math.random() * 20);
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });
     return forkJoin(appelsVersAddAssignment);
