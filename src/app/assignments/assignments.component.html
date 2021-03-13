@@ -24,7 +24,7 @@
                 <mat-divider></mat-divider>
                 <div class="col-md-4 pl-2">{{a.nom}}</div>
                 <div class="col-md-3">{{a.matiere.nom}}</div>
-                <div class="col-md-2">{{a.matiere.note || 0}}</div>
+                <div class="col-md-2">{{a.note}}</div>
                 <div class="col-md-3 ml-3">{{a.matiere.nom_prof}}</div>
               </mat-list-item>
             </a>
@@ -37,7 +37,7 @@
 
 
     <mat-tab label="Non rendu">
-        <div class="row bg-dark text-light" style="height: 60px; padding-top: 20px">
+      <div class="row bg-dark text-light" style="height: 60px; padding-top: 20px">
           <div class="col-md-4 h5 pl-4">Nom</div>
           <div class="col-md-3 h5 p-0">Matière</div>
           <div class="col-md-2 h5 p-0">Date de rendu</div>

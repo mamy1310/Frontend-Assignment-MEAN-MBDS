@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {MatTab} from '@angular/material/tabs';
+import {MatProgressBar} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-assignments',
