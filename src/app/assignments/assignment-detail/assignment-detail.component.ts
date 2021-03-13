@@ -24,7 +24,7 @@ export class AssignmentDetailComponent implements OnInit {
     this.getAssignmentById();
   }
 
-  getAssignmentById() {
+  getAssignmentById(): void {
     // les params sont des string, on va forcer la conversion
     // en number en mettant un "+" devant
     const id: number = +this.route.snapshot.params.id;
@@ -35,7 +35,7 @@ export class AssignmentDetailComponent implements OnInit {
     });
   }
 
-  onAssignmentRendu() {
+  onAssignmentRendu(): void {
     this.assignmentTransmis.rendu = true;
 
     this.assignmentsService
@@ -49,7 +49,7 @@ export class AssignmentDetailComponent implements OnInit {
     // this.assignmentTransmis = null;
   }
 
-  onDelete() {
+  onDelete(): void {
     this.assignmentsService
       .deleteAssignment(this.assignmentTransmis)
       .subscribe((reponse) => {
@@ -63,7 +63,7 @@ export class AssignmentDetailComponent implements OnInit {
       });
   }
 
-  onClickEdit() {
+  onClickEdit(): void {
     this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit'], {
       queryParams: {
         nom: 'Michel Buffa',
@@ -74,8 +74,5 @@ export class AssignmentDetailComponent implements OnInit {
     });
   }
 
-  isAdmin() {
- 
-    return this.authService.isAdmin();
-  }
+
 }

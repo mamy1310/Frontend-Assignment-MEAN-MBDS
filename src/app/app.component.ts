@@ -3,6 +3,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { User } from './login/user.model';
 import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,14 @@ import { AuthService } from './shared/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  loading = false;
   title = 'Application de gestion des assignments';
   isLogin = false;
+  isAdmin=false;
   admin:User;
   constructor(private authService:AuthService, private router:Router,
-              private assignmentsService:AssignmentsService) {
+              private assignmentsService:AssignmentsService,private spinner: NgxSpinnerService) {
                 router.events.forEach((event) => {
                   if(event instanceof NavigationStart) {
                       this.isLogin = event.url == '/login';
@@ -22,21 +26,13 @@ export class AppComponent {
                 });
     }
 
-  // tslint:disable-next-line:use-lifecycle-interface
-  ngOnInit(): void {
-    console.log('Check user');
-    this.authService.getUserByToken().subscribe(reponse => {
-      console.log(reponse);
-      if (reponse.name){
-         const admin = new User();
-         admin.nom = reponse.name;
-         this.authService.admin = admin;
-         this.admin = admin;
-      }
-    }, error => {
-      console.log(error);
-      this.authService.logOut();
-    });
+  ngOnInit(){
+    this.authService.checkUser();
+    this.authService.getEmitted()
+      .subscribe(item => this.isAdmin = item)
+  }
+  ngAfterViewInit(): void{
+    console.log("View init");
   }
   // tslint:disable-next-line:typedef
   login() {
@@ -49,18 +45,18 @@ export class AppComponent {
     this.router.navigate(["/home"]);
   }
 
-  peuplerBD() {
+  peuplerBD(): void {
     // version naive et simple
-    //this.assignmentsService.peuplerBD();
+    // this.assignmentsService.peuplerBD();
 
     // meilleure version :
+    this.spinner.show();
     this.assignmentsService.peuplerBDAvecForkJoin()
       .subscribe(() => {
-        console.log("LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE");
-        this.router.navigate(["/home"], {replaceUrl:true});
-      })
+        console.log('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE');
+        this.router.navigate(['/home'], {replaceUrl: true});
+        this.spinner.hide();
+      });
   }
-  isAdmin(){
-    return this.authService.isAdmin();
-  }
+  
 }

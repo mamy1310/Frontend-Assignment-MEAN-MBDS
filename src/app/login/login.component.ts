@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
         if (reponse.auth && reponse.token ){
           console.log('Tokens  obtenu');
           this.authService.saveToken(reponse.token);
-          this.router.navigate(["/home"]);
+          this.authService.checkUser();
+          this.router.navigateByUrl('/');
         }else{
           this.error_message = 'Email or password invalid';
         }

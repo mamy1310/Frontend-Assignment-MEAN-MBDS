@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
+
 import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
@@ -10,7 +11,7 @@ import { User } from '../login/user.model';
 export class AuthService {
   loggedIn = false;
   admin: User = null;
-
+  @Output() adminEvent:EventEmitter<any> =new EventEmitter<any>();
   constructor(private http: HttpClient) {}
 
    uri = 'http://localhost:8010/api/';
@@ -47,11 +48,32 @@ export class AuthService {
   logOut() {
     this.loggedIn = false;
     this.admin = null;
+    this.adminOnchange();
     localStorage.removeItem('access_token');
   }
-
+  checkUser(): void {
+    console.log('Check user');
+    this.getUserByToken().subscribe(reponse => {
+      console.log(reponse);
+      if (reponse.name){
+         const admin = new User();
+         admin.nom = reponse.name;
+         this.admin = admin;
+         this.adminOnchange();
+      }
+    }, error => {
+      console.log("error");
+      this.logOut();
+    });
+  }
+  adminOnchange(){
+    this.adminEvent.emit(this.isAdmin);
+  }
+  getEmitted(){
+    return this.adminEvent;
+  }
   // tslint:disable-next-line:typedef
-  isAdmin() {
+  public get isAdmin():boolean {
     return this.admin != null;
   }
   // tslint:disable-next-line:typedef

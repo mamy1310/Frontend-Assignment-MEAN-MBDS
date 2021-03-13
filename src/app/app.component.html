@@ -1,17 +1,23 @@
 <div *ngIf="!isLogin">
 
-
+  <ngx-spinner
+  size="medium"
+  type="line-scale-party"
+>
+</ngx-spinner>
 <h1>
 <nav>
   <a routerLink="/home">{{title}}</a>
 </nav>
 </h1>
-<mat-button *ngIf="!isAdmin()" (click)="login()">Log me!</mat-button>
-<div *ngIf="isAdmin()">
-  <p>{{this.admin.nom}}</p>
-  <mat-button  (click)="logout()">Logout</mat-button>
+<mat-button *ngIf="!isAdmin" (click)="login()">Log me!</mat-button>
+<p *ngIf="isAdmin">{{authService.admin.nom}}</p>
+<button mat-stroked-button *ngIf="isAdmin" color="primary" (click)="peuplerBD()">PeuplerBD</button>
+<button mat-stroked-button *ngIf="isAdmin" color="primary" (click)="logout()">Se deconnecter</button>
 </div>
-<button mat-stroked-button color="primary" (click)="peuplerBD()">PeuplerBD</button>
-</div>
+
+
+
+
 <!-- Indique qu'on affichera le composant qui correspond à l'URL courant -->
 <router-outlet></router-outlet>
