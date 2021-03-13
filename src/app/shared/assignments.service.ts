@@ -14,7 +14,7 @@ export class AssignmentsService {
 
   constructor(private loggingService: LoggingService, private http: HttpClient) { }
 
-   //uri = 'http://localhost:8010/api/assignments';
+   // uri = 'http://localhost:8010/api/assignments';
   uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/assignments';
 
   getAssignments(): Observable<Assignment[]> {
