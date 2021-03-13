@@ -4,6 +4,7 @@ export class Assignment {
   nom: string;
   dateDeRendu: Date;
   rendu: boolean;
-  note: number;
+  note?: number;
+  remarque?: string;
   matiere: any;
 }

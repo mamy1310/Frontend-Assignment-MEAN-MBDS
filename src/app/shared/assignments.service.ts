@@ -160,7 +160,7 @@ export class AssignmentsService {
         nom_prof: listeProfs[random].nom,
         photo_prof: listeProfs[random].image
       };
-      nouvelAssignment.note = Math.floor(Math.random() * 20);
+      nouvelAssignment.note = a.rendu ? Math.floor(Math.random() * 20) : null;
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });
     return forkJoin(appelsVersAddAssignment);
