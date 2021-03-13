@@ -28,7 +28,11 @@ import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './login/login.component';
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 const routes: Routes = [
   {
     // indique que http://localhost:4200 sans rien ou avec un "/" à la fin
@@ -53,6 +57,10 @@ const routes: Routes = [
     path: 'assignment/:id/edit',
     component: EditAssigmentComponent,
     canActivate : [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 @NgModule({
@@ -63,7 +71,8 @@ const routes: Routes = [
     NonRenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssigmentComponent
+    EditAssigmentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +82,12 @@ const routes: Routes = [
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
     MatSlideToggleModule, MatTabsModule,
-    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, NgbModule
+    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, NgbModule,   JwtModule.forRoot({
+      config: {
+        // tslint:disable-next-line:object-literal-shorthand
+        tokenGetter: tokenGetter,
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
