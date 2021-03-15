@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { User } from './login/user.model';
 import { AssignmentsService } from './shared/assignments.service';
@@ -10,39 +10,39 @@ import {NgxSpinnerService} from 'ngx-spinner';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
 
   loading = false;
   title = 'Application de gestion des assignments';
   isLogin = false;
-  isAdmin=false;
-  admin:User;
-  constructor(private authService:AuthService, private router:Router,
-              private assignmentsService:AssignmentsService,private spinner: NgxSpinnerService) {
+  isAdmin = false;
+  admin: User;
+  constructor(private authService: AuthService, private router: Router,
+              private assignmentsService: AssignmentsService, private spinner: NgxSpinnerService) {
                 router.events.forEach((event) => {
-                  if(event instanceof NavigationStart) {
-                      this.isLogin = event.url == '/login';
+                  if (event instanceof NavigationStart) {
+                      this.isLogin = event.url === '/login';
                   }
                 });
     }
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.authService.checkUser();
     this.authService.getEmitted()
-      .subscribe(item => this.isAdmin = item)
+      .subscribe(item => this.isAdmin = item);
   }
-  ngAfterViewInit(): void{
-    console.log("View init");
+  ngAfterViewInit(): void {
+    console.log('View init');
   }
   // tslint:disable-next-line:typedef
   login() {
 
-      this.router.navigate(["/login"]);
+      this.router.navigate(['/login']);
   }
   // tslint:disable-next-line:typedef
   logout() {
     this.authService.logOut();
-    this.router.navigate(["/home"]);
+    this.router.navigate(['/home']);
   }
 
   peuplerBD(): void {
@@ -58,5 +58,5 @@ export class AppComponent {
         this.spinner.hide();
       });
   }
-  
+
 }
