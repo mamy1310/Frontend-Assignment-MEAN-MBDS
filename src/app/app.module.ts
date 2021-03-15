@@ -18,7 +18,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { NonRenduDirective } from './shared/non-rendu.directive';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -30,6 +30,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { LoginComponent } from './login/login.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {NgSelectModule} from "@ng-select/ng-select";
+import {ToastrModule} from "ngx-toastr";
 
 const routes: Routes = [
   {
@@ -79,9 +82,10 @@ const routes: Routes = [
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
-    MatSlideToggleModule, MatTabsModule,
+    MatSlideToggleModule, MatTabsModule, MatStepperModule,
     RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, NgbModule,
-    NgxSpinnerModule
+    NgxSpinnerModule, ReactiveFormsModule, NgSelectModule, ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
