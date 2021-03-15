@@ -6,6 +6,7 @@ import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
 import {MatTab} from '@angular/material/tabs';
 import {MatProgressBar} from '@angular/material/progress-bar';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-assignments',
@@ -34,7 +35,8 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   }
 
   getAssignments(rendu: boolean): void {
+    this.spinner.show();
     this.assignmentsService
       .getAssignmentsPagine(this.page, this.limit, rendu)
       .subscribe((data) => {
@@ -62,10 +65,12 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
         this.hasNextPage = data.hasNextPage;
         this.nextPage = data.nextPage;
         console.log('données reçues');
+        this.spinner.hide();
       });
   }
 
   getPlusDAssignmentsPourScrolling(rendu: boolean): void {
+    this.spinner.show();
     this.assignmentsService
       .getAssignmentsPagine(this.page, this.limit, rendu)
       .subscribe((data) => {
@@ -85,6 +90,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
         this.hasNextPage = data.hasNextPage;
         this.nextPage = data.nextPage;
         console.log('données reçues');
+        this.spinner.hide();
       });
   }
 

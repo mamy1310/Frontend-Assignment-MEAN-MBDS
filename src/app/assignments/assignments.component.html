@@ -6,85 +6,92 @@
   </a>
   <h1>Liste des assignments</h1>
   <mat-divider></mat-divider>
-
-  <mat-tab-group (selectedIndexChange)="onTabChanged($event)">
-    <mat-tab label="Rendu">
-      <cdk-virtual-scroll-viewport #scroller class="example-viewport" itemSize="50">
-        <mat-list  *cdkVirtualFor="let a of assignmentsRendu">
-          <nav>
-            <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
-              <mat-list-item class="row" style="height: 160px; padding-left: 20px">
-                <mat-card class="example-card col-md-12">
-                  <mat-card-header class="row mb-4">
-                    <div class="col-md-6">
+    <mat-tab-group (selectedIndexChange)="onTabChanged($event)">
+      <ngx-spinner
+        size="medium"
+        [fullScreen]="false"
+      ></ngx-spinner>
+      <mat-tab label="Rendu">
+        <cdk-virtual-scroll-viewport #scroller class="example-viewport" itemSize="50">
+          <mat-list *cdkVirtualFor="let a of assignmentsRendu">
+            <nav>
+              <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
+                <mat-list-item class="row" style="height: 160px; padding-left: 20px">
+                  <mat-card class="example-card col-md-12">
+                    <mat-card-header class="row mb-4">
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-2">
+                            <img style="width: 50px; margin: 0; height: 50px" src="assets/images/{{a.matiere.image}}"
+                                 alt="...">
+                          </div>
+                          <div class="col-md-8">
+                            <span class="card-title" style="font-size: 25px">Devoir {{a.matiere.nom}}</span><br>
+                            <span class="card-subtitle" style="color: gray">{{a.dateDeRendu | date}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <img style="width: 50px; margin: 0; float: right" src="assets/images/{{a.matiere.photo_prof}}"
+                             alt="...">
+                      </div>
+                    </mat-card-header>
+                    <mat-card-content>
                       <div class="row">
-                        <div class="col-md-2">
-                          <img style="width: 50px; margin: 0; height: 50px" src="assets/images/{{a.matiere.image}}" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                          <span class="card-title" style="font-size: 25px">Devoir {{a.matiere.nom}}</span><br>
-                          <span class="card-subtitle" style="color: gray">{{a.dateDeRendu | date}}</span>
+                        <div class="col-md-2" style="font-size: 15px">Auteur:</div>
+                        <div class="col-md-8" style="font-size: 20px">
+                          <span style="padding-bottom: 5px">{{a.nom}}</span>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-5">
-                      <img style="width: 50px; margin: 0; float: right" src="assets/images/{{a.matiere.photo_prof}}" alt="...">
-                    </div>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <div class="row">
-                      <div class="col-md-2" style="font-size: 15px">Auteur:</div>
-                      <div class="col-md-8" style="font-size: 20px">
-                        <span style="padding-bottom: 5px">{{a.nom}}</span>
+                    </mat-card-content>
+                  </mat-card>
+                </mat-list-item>
+              </a>
+            </nav>
+          </mat-list>
+        </cdk-virtual-scroll-viewport>
+      </mat-tab>
+
+
+      <mat-tab label="Non rendu">
+        <cdk-virtual-scroll-viewport #scrollerNonRendu class="example-viewport" itemSize="50">
+          <mat-list *cdkVirtualFor="let a of assignmentsNonRendu">
+            <nav>
+              <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
+                <mat-list-item class="row" style="height: 160px; padding-left: 20px">
+                  <mat-card class="example-card col-md-12">
+                    <mat-card-header class="row mb-4">
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-2">
+                            <img style="width: 50px; margin: 0; height: 50px" src="assets/images/{{a.matiere.image}}"
+                                 alt="...">
+                          </div>
+                          <div class="col-md-8">
+                            <span class="card-title" style="font-size: 25px">Devoir {{a.matiere.nom}}</span><br>
+                            <span class="card-subtitle" style="color: gray">{{a.dateDeRendu | date}}</span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </mat-card-content>
-                </mat-card>
-              </mat-list-item>
-            </a>
-          </nav>
-        </mat-list>
-      </cdk-virtual-scroll-viewport>
-    </mat-tab>
-
-
-    <mat-tab label="Non rendu">
-      <cdk-virtual-scroll-viewport #scrollerNonRendu class="example-viewport" itemSize="50">
-        <mat-list  *cdkVirtualFor="let a of assignmentsNonRendu">
-          <nav>
-            <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
-              <mat-list-item class="row" style="height: 160px; padding-left: 20px">
-                <mat-card class="example-card col-md-12">
-                  <mat-card-header class="row mb-4">
-                    <div class="col-md-6">
+                      <div class="col-md-5">
+                        <img style="width: 50px; margin: 0; float: right" src="assets/images/{{a.matiere.photo_prof}}"
+                             alt="...">
+                      </div>
+                    </mat-card-header>
+                    <mat-card-content>
                       <div class="row">
-                        <div class="col-md-2">
-                          <img style="width: 50px; margin: 0; height: 50px" src="assets/images/{{a.matiere.image}}" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                          <span class="card-title" style="font-size: 25px">Devoir {{a.matiere.nom}}</span><br>
-                          <span class="card-subtitle" style="color: gray">{{a.dateDeRendu | date}}</span>
+                        <div class="col-md-2" style="font-size: 15px">Auteur:</div>
+                        <div class="col-md-8" style="font-size: 20px">
+                          <span style="padding-bottom: 5px">{{a.nom}}</span>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-5">
-                      <img style="width: 50px; margin: 0; float: right" src="assets/images/{{a.matiere.photo_prof}}" alt="...">
-                    </div>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <div class="row">
-                      <div class="col-md-2" style="font-size: 15px">Auteur:</div>
-                      <div class="col-md-8" style="font-size: 20px">
-                        <span style="padding-bottom: 5px">{{a.nom}}</span>
-                      </div>
-                    </div>
-                  </mat-card-content>
-                </mat-card>
-              </mat-list-item>
-            </a>
-          </nav>
-        </mat-list>
-      </cdk-virtual-scroll-viewport>
-    </mat-tab>
-  </mat-tab-group>
+                    </mat-card-content>
+                  </mat-card>
+                </mat-list-item>
+              </a>
+            </nav>
+          </mat-list>
+        </cdk-virtual-scroll-viewport>
+      </mat-tab>
+    </mat-tab-group>
 </main>
