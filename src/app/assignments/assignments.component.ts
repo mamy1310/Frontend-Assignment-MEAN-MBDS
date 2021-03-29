@@ -7,6 +7,7 @@ import { Assignment } from './assignment.model';
 import {MatTab} from '@angular/material/tabs';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from "../shared/auth.service";
 
 @Component({
   selector: 'app-assignments',
@@ -25,6 +26,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   prevPage: number;
   hasNextPage: boolean;
   nextPage: number;
+  isAdmin = false;
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   @ViewChild('scrollerNonRendu') scrollerNonRendu: CdkVirtualScrollViewport;
@@ -33,6 +35,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   // on injecte le service de gestion des assignments
   constructor(
     private assignmentsService: AssignmentsService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private ngZone: NgZone,
@@ -44,6 +47,10 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     // on regarde s'il y a page= et limit = dans l'URL
     this.getAssignments(true);
     this.getAssignments(false);
+
+    this.authService.checkUser();
+    this.authService.getEmitted()
+      .subscribe(item => this.isAdmin = item);
   }
 
   getAssignments(rendu: boolean): void {

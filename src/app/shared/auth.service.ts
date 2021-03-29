@@ -11,7 +11,7 @@ import { User } from '../login/user.model';
 export class AuthService {
   loggedIn = false;
   admin: User = null;
-  @Output() adminEvent:EventEmitter<any> =new EventEmitter<any>();
+  @Output() adminEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(private http: HttpClient) {}
 
   // uri = 'http://localhost:8010/api/';
@@ -36,7 +36,7 @@ export class AuthService {
     return of("Service: assignment ajouté !");*/
     const token: string = localStorage.getItem('access_token');
     console.log( 'token: ' + token);
-    return this.http.get(this.uri + 'auth', { headers: { 'x-access-token': token, 'Accept' : '*/*'}});
+    return this.http.get(this.uri + 'auth', { headers: { 'x-access-token': token, Accept : '*/*'}});
   }
 
   // tslint:disable-next-line:typedef
@@ -62,18 +62,18 @@ export class AuthService {
          this.adminOnchange();
       }
     }, error => {
-      console.log("error");
+      console.log('error');
       this.logOut();
     });
   }
-  adminOnchange(){
+  adminOnchange(): void{
     this.adminEvent.emit(this.isAdmin);
   }
-  getEmitted(){
+  getEmitted(): any{
     return this.adminEvent;
   }
   // tslint:disable-next-line:typedef
-  public get isAdmin():boolean {
+  public get isAdmin(): boolean {
     return this.admin != null;
   }
   // tslint:disable-next-line:typedef

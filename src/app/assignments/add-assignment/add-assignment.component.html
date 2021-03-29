@@ -17,23 +17,23 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup" label="Devoir">
-    <form [formGroup]="secondFormGroup" ngForm>
+    <form [formGroup]="secondFormGroup" ngForm style="height: 300px">
       <div class="row">
-          <mat-form-field appearance="fill" class="col-6">
-            <mat-label>Choisissez une date</mat-label>
-            <input matInput
-                   [matDatepicker]="picker"
-                   required
-                   formControlName="secondCtrl"
-                   [(ngModel)]="dateDeRendu">
+        <mat-form-field appearance="fill" class="col-6">
+          <mat-label>Choisissez une date</mat-label>
+          <input matInput
+                 [matDatepicker]="picker"
+                 required
+                 formControlName="secondCtrl"
+                 [(ngModel)]="dateDeRendu">
 
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
         <div class="col-6">
           <ng-select placeholder="Matières" [(ngModel)]="matiere" [ngModelOptions]="{standalone: true}" required>
             <ng-option *ngFor="let m of matieres"
-                        [value]="m">
+                       [value]="m" style="position: relative">
               <img src="assets/images/{{m.image}}" alt="{{m.image}}" style="width: 20px"> {{m.nom}}
             </ng-option>
           </ng-select>
@@ -47,31 +47,33 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Validation</ng-template>
-    <p>Vous avez terminé.</p>
-    <p>{{nom}}</p>
-    <p>{{dateDeRendu | date}}</p>
-    <p>{{matiere?.image}}</p>
+    <p *ngIf="nom && matiere && dateDeRendu" class="text-success">Vous avez terminé.</p>
+    <div style="padding: 10px; border: 1px solid gray; border-radius: 5px; margin-top: 10px; margin-bottom: 10px">
+      <p>Nom de l'élève:
+        <span *ngIf="nom; else nomError"> {{nom}}</span>
+        <ng-template #nomError>
+          <span class="text-danger"> Nom obligatoire</span>
+        </ng-template>
+      </p>
+      <p>Date de rendu:
+        <span *ngIf="dateDeRendu; else dateRenduError"> {{dateDeRendu | date}}</span>
+        <ng-template #dateRenduError>
+          <span class="text-danger"> Date de rendu obligatoire</span>
+        </ng-template>
+      </p>
+      <p>Matière:
+        <span *ngIf="matiere; else matiereError">{{matiere.nom}} <img src="assets/images/{{matiere.image}}" style="width: 50px"></span>
+      </p>
+      <p>Professeur:
+        <span *ngIf="matiere; else matiereError">{{matiere.nom_prof}} <img src="assets/images/{{matiere.image_prof}}" style="width: 50px"></span>
+      </p>
+      <ng-template #matiereError>
+        <span class="text-danger"> Veuillez sélectionner une matière</span>
+      </ng-template>
+    </div>
     <div>
       <button mat-button matStepperPrevious>Précédent</button>
-      <button class="btn btn-primary" (click)="onSubmit($event)">Enregistrer</button>
+      <button class="btn btn-primary" (click)="onSubmit($event)" *ngIf="nom && matiere && dateDeRendu">Enregistrer</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
-<!--<form ngForm #formAssignment class="form" (submit)="onSubmit($event); formAssignment.reset();">
-  <mat-form-field>
-    <input matInput placeholder="Nom du devoir" required [(ngModel)]="nom" name="nom">
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Choisissez une date</mat-label>
-    <input matInput [matDatepicker]="picker" required [(ngModel)]="dateDeRendu" name="date">
-
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <button mat-stroked-button color="primary">
-    Ajouter un devoir
-  </button>
-</form>-->

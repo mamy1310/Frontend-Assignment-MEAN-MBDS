@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AssignmentsService} from 'src/app/shared/assignments.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {ToastrService} from 'ngx-toastr';
 import {Assignment} from '../assignment.model';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
+import {MatiereService} from '../../shared/matiere.service';
+import {Matiere} from '../matiere.model';
+import {AuthService} from "../../shared/auth.service";
 
 @Component({
   selector: 'app-add-assignment',
@@ -17,41 +20,34 @@ import {NgxSpinnerService} from "ngx-spinner";
 })
 export class AddAssignmentComponent implements OnInit {
   // Pour les champs du formulaire
-  nom = '';
+  nom: string = null;
   dateDeRendu = null;
-  matiere = null;
-  matieres = [
-    {
-      nom: 'JEE',
-      image: 'jee.png',
-      nom_prof: '',
-      photo_prof: '',
-    }, {
-      nom: 'Big data',
-      image: 'big_data.png',
-      nom_prof: '',
-      photo_prof: '',
-    }
-  ];
+  matiere: Matiere;
+  matieres: Matiere[] = [];
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isLinear: false;
 
   constructor(private assignmentsService: AssignmentsService,
+              private matiereService: MatiereService,
               private router: Router,
               // tslint:disable-next-line:variable-name
               private _formBuilder: FormBuilder,
               private toast: ToastrService,
-              private spinner: NgxSpinnerService) {}
+              private spinner: NgxSpinnerService) {
+  }
 
   ngOnInit(): void {
     this.initStepper();
+    this.loadMatieres();
   }
 
   onSubmit(event): void {
     this.spinner.show();
-    if ((!this.nom) || (!this.dateDeRendu)) { return; }
+    if ((!this.nom) || (!this.dateDeRendu)) {
+      return;
+    }
 
     const nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.nom;
@@ -60,15 +56,12 @@ export class AddAssignmentComponent implements OnInit {
     nouvelAssignment.matiere = {
       image: this.matiere.image,
       nom: this.matiere.nom,
-      photo_prof: this.matiere.photo_prof,
+      image_prof: this.matiere.image_prof,
       nom_prof: this.matiere.nom_prof
     };
 
     this.assignmentsService.addAssignment(nouvelAssignment)
       .subscribe(reponse => {
-        // console.log(reponse.message);
-
-         // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(['/home']);
         this.toast.success(reponse.message, 'Info');
         this.spinner.hide();
@@ -82,6 +75,20 @@ export class AddAssignmentComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  loadMatieres(): void {
+    this.spinner.show();
+    this.matiereService.getMatieres().subscribe(
+      (matieres) => {
+        this.matieres = matieres;
+        this.spinner.hide();
+      },
+      error => {
+        this.toast.error(error, 'Erreur de chargement des matières');
+        this.spinner.hide();
+      }
+    );
   }
 
 }

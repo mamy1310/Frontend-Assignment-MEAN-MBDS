@@ -158,7 +158,7 @@ export class AssignmentsService {
         nom: matieres[random].nom,
         image: matieres[random].image,
         nom_prof: listeProfs[random].nom,
-        photo_prof: listeProfs[random].image
+        image_prof: listeProfs[random].image
       };
       nouvelAssignment.note = a.rendu ? Math.floor(Math.random() * 20) : null;
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
