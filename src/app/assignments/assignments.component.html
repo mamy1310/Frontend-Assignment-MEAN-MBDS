@@ -1,5 +1,5 @@
 <main class="container">
-  <a routerLink="/add" class="ajouterBtn">
+  <a routerLink="/add" class="ajouterBtn" *ngIf="isAdmin">
     <button mat-flat-button color="accent">
       Ajouter un assignment
     </button>
