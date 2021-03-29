@@ -2,7 +2,6 @@
 
   <ngx-spinner
   size="medium"
-  type="line-scale-party"
 >
 </ngx-spinner>
 <h1>
@@ -10,9 +9,9 @@
   <a routerLink="/home">{{title}}</a>
 </nav>
 </h1>
-<mat-button *ngIf="!isAdmin" (click)="login()">Log me!</mat-button>
+<button mat-stroked-button *ngIf="!isAdmin" (click)="login()">Se connecter</button>
 <p *ngIf="isAdmin">{{authService.admin.nom}}</p>
-<button mat-stroked-button *ngIf="isAdmin" color="primary" (click)="peuplerBD()">PeuplerBD</button>
+<button mat-stroked-button *ngIf="isAdmin" color="primary" (click)="peuplerBD()" class="mr-1">PeuplerBD</button>
 <button mat-stroked-button *ngIf="isAdmin" color="primary" (click)="logout()">Se deconnecter</button>
 </div>
 
