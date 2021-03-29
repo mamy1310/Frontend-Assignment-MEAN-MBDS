@@ -8,7 +8,6 @@ import {Assignment} from '../assignment.model';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MatiereService} from '../../shared/matiere.service';
 import {Matiere} from '../matiere.model';
-import {AuthService} from "../../shared/auth.service";
 
 @Component({
   selector: 'app-add-assignment',
