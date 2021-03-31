@@ -111,7 +111,8 @@ export class EditAssigmentComponent implements OnInit {
         this.router.navigate(['/home']);
       },error =>{
         console.log("error edit assignement:");
-        console.log(error);
+        console.log(error.error);
+        this.toast.error(error.error.message, "Erreur de validation");
         this.spinner.hide();
       });
 

@@ -1,6 +1,6 @@
 <h2>Modification de l'assignment</h2>
 
-<form ngForm #formAssignment class="form" (submit)="onSubmit($event); formAssignment.reset();">
+<form ngForm #formAssignment class="form" (submit)="onSubmit($event);">
   <mat-form-field>
     <input matInput placeholder="Nom de l'eleve" required [(ngModel)]="nom" name="nom">
   </mat-form-field>
