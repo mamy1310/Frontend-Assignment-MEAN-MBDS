@@ -65,7 +65,7 @@ export class AssignmentDetailComponent implements OnInit {
 
         // on cache l'affichage du détail
         this.assignmentTransmis = null;
-
+        this.toast.success("Devoir supprime");
         // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(['/home']);
       });

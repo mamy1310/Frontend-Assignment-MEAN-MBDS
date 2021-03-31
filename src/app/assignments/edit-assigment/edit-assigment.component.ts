@@ -106,6 +106,7 @@ export class EditAssigmentComponent implements OnInit {
     this.assignmentsService.updateAssignment(this.assignment)
       .subscribe(message => {
         console.log(message);
+        this.toast.success("Modification du devoir reussi");
         this.spinner.hide();
         // et on navigue vers la page d'accueil
         this.router.navigate(['/home']);
