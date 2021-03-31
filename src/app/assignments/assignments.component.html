@@ -1,9 +1,12 @@
 <main class="container">
-  <a routerLink="/add" class="ajouterBtn" *ngIf="isAdmin">
-    <button mat-flat-button color="accent">
+  <div class="actionBtn">
+    <button mat-flat-button color="accent" routerLink="/add" *ngIf="isAdmin" class="mr-2">
       Ajouter un assignment
     </button>
-  </a>
+    <button mat-flat-button color="primary" routerLink="/search">
+      <mat-icon aria-hidden="false">search</mat-icon> Rechercher
+    </button>
+  </div>
   <h1>Liste des assignments</h1>
   <mat-divider></mat-divider>
     <mat-tab-group (selectedIndexChange)="onTabChanged($event)">

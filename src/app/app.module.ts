@@ -31,8 +31,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { LoginComponent } from './login/login.component';
 import {MatStepperModule} from '@angular/material/stepper';
-import {NgSelectModule} from "@ng-select/ng-select";
-import {ToastrModule} from "ngx-toastr";
+import {NgSelectModule} from '@ng-select/ng-select';
+import {ToastrModule} from 'ngx-toastr';
+import { SearchAssignmentComponent } from './assignments/search-assignment/search-assignment.component';
+import { CardAssignmentComponent } from './assignments/card-assignment/card-assignment.component';
 
 const routes: Routes = [
   {
@@ -62,6 +64,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'search',
+    component: SearchAssignmentComponent
   }
 ];
 @NgModule({
@@ -73,7 +79,9 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssigmentComponent,
-    LoginComponent
+    LoginComponent,
+    SearchAssignmentComponent,
+    CardAssignmentComponent
   ],
   imports: [
     BrowserModule,

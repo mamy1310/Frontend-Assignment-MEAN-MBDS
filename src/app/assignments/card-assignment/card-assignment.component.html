@@ -1,0 +1,28 @@
+<mat-card class="example-card col-md-12" *ngIf="assignment">
+  <mat-card-header class="row mb-4">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-2">
+          <img style="width: 50px; margin: 0; height: 50px" src="assets/images/{{assignment.matiere.image}}"
+               alt="...">
+        </div>
+        <div class="col-md-8">
+          <span class="card-title" style="font-size: 25px">Devoir {{assignment.matiere.nom}}</span><br>
+          <span class="card-subtitle" style="color: gray">{{assignment.dateDeRendu | date}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <img style="width: 50px; margin: 0; float: right" src="assets/images/{{assignment.matiere.image_prof}}"
+           alt="...">
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-md-2" style="font-size: 15px">Auteur:</div>
+      <div class="col-md-8" style="font-size: 20px">
+        <span style="padding-bottom: 5px">{{assignment.nom}}</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
