@@ -14,7 +14,7 @@
       </nav>
 
 
-      <button mat-stroked-button color="warn" (click)="onDelete()">DELETE</button>
+      <button [disabled]="!authService.isAdmin" mat-stroked-button color="warn" (click)="onDelete()">DELETE</button>
     </div>
   </mat-card>
 </div>
