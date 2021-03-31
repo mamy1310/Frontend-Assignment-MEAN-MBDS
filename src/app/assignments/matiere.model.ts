@@ -8,4 +8,8 @@ export class Matiere {
   nom_prof: string;
   // tslint:disable-next-line:variable-name
   image_prof: string;
+
+  equals(m){
+    return m.id == this.id
+  }
 }

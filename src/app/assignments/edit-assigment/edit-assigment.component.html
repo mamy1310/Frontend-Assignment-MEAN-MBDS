@@ -1,8 +1,8 @@
 <h2>Modification de l'assignment</h2>
 
-<form ngForm #formAssignment class="form" (submit)="onSubmit($event); formAssignment.reset();">
+<form ngForm #formAssignment class="form" (submit)="onSubmit($event);">
   <mat-form-field>
-    <input matInput placeholder="Nom du devoir" required [(ngModel)]="nom" name="nom">
+    <input matInput placeholder="Nom de l'eleve" required [(ngModel)]="nom" name="nom">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -13,8 +13,20 @@
 
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Note du devoir" [(ngModel)]="note" name="note">
+  </mat-form-field>
 
-  <button mat-stroked-button color="primary">
+    <ng-select #selectMatieres placeholder="Matières" [(ngModel)]="matiere"  [ngModelOptions]="{standalone: true}" required>
+      <ng-option *ngFor="let m of matieres"
+                 [value]="m" style="position: relative">
+        <img src="assets/images/{{m.image}}" alt="{{m.image}}" style="width: 20px"> {{m.nom}}
+      </ng-option>
+    </ng-select>
+
+  <mat-slide-toggle  [(ngModel)]="rendu" [ngModelOptions]="{standalone: true}">rendu</mat-slide-toggle>
+  <button mat-stroked-button color="primary"
+  >
     Modifier le devoir
   </button>
 </form>

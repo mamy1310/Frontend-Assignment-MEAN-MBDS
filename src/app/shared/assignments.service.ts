@@ -14,8 +14,8 @@ export class AssignmentsService {
 
   constructor(private loggingService: LoggingService, private http: HttpClient) { }
 
-   // uri = 'http://localhost:8010/api/assignments';
-  uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/assignments';
+    uri = 'http://localhost:8010/api/assignments';
+  //uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/assignments';
 
   getAssignments(): Observable<Assignment[]> {
     console.log('Dans le service de gestion des assignments...');
@@ -46,7 +46,7 @@ export class AssignmentsService {
     .pipe(
       // traitement 1
       map(a => {
-        a.nom += ' MODIFIE PAR MAP';
+       // a.nom += ' MODIFIE PAR MAP';
         return a;
       }),
       tap(a => {
