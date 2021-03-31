@@ -102,12 +102,17 @@ export class EditAssigmentComponent implements OnInit {
     this.assignment.rendu = this.rendu;
     console.log("assignement modifie");
     console.log(this.assignment);
+    this.spinner.show();
     this.assignmentsService.updateAssignment(this.assignment)
       .subscribe(message => {
         console.log(message);
-
+        this.spinner.hide();
         // et on navigue vers la page d'accueil
         this.router.navigate(['/home']);
+      },error =>{
+        console.log("error edit assignement:");
+        console.log(error);
+        this.spinner.hide();
       });
 
   }
