@@ -34,6 +34,7 @@ export class AuthGuard implements CanActivate {
           console.log(reponse);
           if (reponse.name){
              const admin = new User();
+             admin.nom = reponse.name;
              this.authService.admin = admin;
           }
         }, error => {

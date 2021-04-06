@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { AuthService } from 'src/app/shared/auth.service';
 import { MatiereService } from 'src/app/shared/matiere.service';
 import { Assignment } from '../assignment.model';
 import { Matiere } from '../matiere.model';
@@ -32,6 +33,7 @@ export class EditAssigmentComponent implements OnInit {
     // tslint:disable-next-line:variable-name
     private _formBuilder: FormBuilder,
     private toast: ToastrService,
+    private authService: AuthService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -53,6 +55,8 @@ export class EditAssigmentComponent implements OnInit {
         this.matieres = matieres;
         this.findMatiere();
         this.spinner.hide();
+        console.log("admin:");
+        console.log(this.authService.admin);
       },
       error => {
         this.toast.error(error, 'Erreur de chargement des matières');

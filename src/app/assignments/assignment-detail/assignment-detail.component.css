@@ -7,3 +7,9 @@
   justify-content: space-between;
   align-items: flex-end;
 }
+.profs{
+  text-align: left !important;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+}

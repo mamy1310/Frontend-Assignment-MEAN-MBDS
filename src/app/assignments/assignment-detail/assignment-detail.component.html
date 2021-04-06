@@ -1,20 +1,44 @@
-<div class="container">
-  <mat-card *ngIf="assignmentTransmis">
-    <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-    <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
-    <div id="bottom">
-      <mat-checkbox [checked]="assignmentTransmis.rendu" [disableRipple]="true"
+<div style="margin:auto;text-align: center;" class="container">
+  <mat-card  *ngIf="assignmentTransmis">
+    <div class="profs">
+      <h6><b>Professeur :</b> {{assignmentTransmis.matiere.nom_prof}}</h6>
+      <img style="width: 50px; margin: auto; height: 50px" src="assets/images/{{assignmentTransmis.matiere.image_prof}}"
+      alt="...">
+      
+    </div>
+    <mat-card-title>
+      <h3><b>Devoir :</b> {{assignmentTransmis.matiere.nom}}</h3>
+        <img style="width: 50px; margin: auto; height: 50px" src="assets/images/{{assignmentTransmis.matiere.image}}"
+             alt="...">
+        
+    
+    </mat-card-title>
+    <mat-card-content>
+      elève: {{assignmentTransmis.nom}}
+    </mat-card-content>
+    <mat-card-subtitle><p>{{assignmentTransmis.dateDeRendu | date}}</p>
+      <mat-checkbox [checked]="assignmentTransmis.rendu" [disableRipple]="assignmentTransmis.rendu"
       disabled>
         Rendu
       </mat-checkbox>
+    </mat-card-subtitle>
+    
+ 
+   
+    <div id="bottom">
+     
       <nav>
 
-          <button [disabled]="!authService.isAdmin" mat-stroked-button color="primary" (click)="onClickEdit()">EDIT</button>
+          <button [disabled]="!authService.isAdmin" mat-stroked-button color="primary" (click)="onClickEdit()"><span class="material-icons">
+            edit
+            </span></button>
 
       </nav>
 
 
-      <button [disabled]="!authService.isAdmin" mat-stroked-button color="warn" (click)="onDelete()">DELETE</button>
+      <button [disabled]="!authService.isAdmin" mat-stroked-button color="warn" (click)="onDelete()"><span class="material-icons">
+        delete_forever
+        </span></button>
     </div>
   </mat-card>
 </div>

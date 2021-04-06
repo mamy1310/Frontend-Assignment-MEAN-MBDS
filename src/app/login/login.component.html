@@ -1,9 +1,12 @@
 <html>
 <body>
-    
+    <ngx-spinner
+  size="medium"
+>
+</ngx-spinner> 
 <div id="login">
     <div class="container">
-        <header>Sign in</header>
+        <header>Se connecter</header>
 
        
             <div class="error_message">{{error_message}}</div>
@@ -19,7 +22,7 @@
             <div class="input-field">
                 <input [type]="isPassword ? 'password' : 'text'" required [(ngModel)]="password" class="pswrd" name="password" id="password"/>
 
-                <label>Password:</label>
+                <label>Mot de passe:</label>
                 <span class="show" (click)="togglePassword()">{{isPassword ? 'SHOW' : 'HIDE'}}</span>
             </div>
 
@@ -28,7 +31,7 @@
             <div class="button">
                 <div class="inner">
                 </div>
-                <input type="submit" id="submit" value="Sign in"/>
+                <input type="submit" id="submit" value="Se connecter"/>
             </div>
         </form>
     </div>

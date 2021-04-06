@@ -16,8 +16,8 @@
 
   
   
-  <p style="margin-top: 10px;margin-right: 15px" *ngIf="isAdmin">{{authService.admin.nom}}</p>
-  <button mat-raised-button *ngIf="isAdmin" color="warn" (click)="logout()">Se deconnecter</button>
+  <h3 style="margin-top: 5px;margin-right: 15px" *ngIf="isAdmin">{{authService.admin.nom}}</h3>
+  <button mat-raised-button style="height: 40px;" *ngIf="isAdmin" color="warn" (click)="logout()">Se deconnecter</button>
 </div>
 </div>
 
