@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { User } from './login/user.model';
 import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
@@ -18,10 +18,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   isAdmin = false;
   admin: User;
   constructor(private authService: AuthService, private router: Router,
-              private assignmentsService: AssignmentsService, private spinner: NgxSpinnerService) {
+              private assignmentsService: AssignmentsService, private spinner: NgxSpinnerService,  private route: ActivatedRoute) {
                 router.events.forEach((event) => {
                   if (event instanceof NavigationStart) {
-                      this.isLogin = event.url === '/login';
+                      console.log('event url');
+                      console.log(event.url);
+                      this.isLogin = event.url === '/login' || event.url === '/login?' ;
                   }
                 });
     }
@@ -36,8 +38,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   // tslint:disable-next-line:typedef
   login() {
-
-      this.router.navigate(['/login']);
+      console.log('url lasa tay');
+      console.log(this.router.url);
+      this.router.navigate(['/login'], {queryParams:{redirectURL: this.router.url}});
   }
   // tslint:disable-next-line:typedef
   logout() {

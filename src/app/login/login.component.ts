@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../shared/auth.service';
 import { User } from './user.model';
@@ -14,13 +14,20 @@ export class LoginComponent implements OnInit {
   error_message = '';
   username = '';
   password = '';
-  isPassword:boolean = true;
+  isPassword = true;
+  // tslint:disable-next-line:variable-name
+  url_redirect = '';
 
-  constructor(private authService: AuthService, private router: Router,private spinner: NgxSpinnerService) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private authService: AuthService, private router: Router,private spinner: NgxSpinnerService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.url_redirect = this.route.snapshot.queryParams.redirectURL;
+    console.log("this.url_redirect" );
+    console.log( this.route.snapshot.queryParams);
   }
 
+  // tslint:disable-next-line:typedef
   togglePassword(){
     this.isPassword = !this.isPassword;
   }
@@ -39,7 +46,7 @@ export class LoginComponent implements OnInit {
           console.log('Tokens  obtenu');
           this.authService.saveToken(reponse.token);
           this.authService.checkUser();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl(this.url_redirect);
         }else{
           this.error_message = 'Email or password invalid';
         }
