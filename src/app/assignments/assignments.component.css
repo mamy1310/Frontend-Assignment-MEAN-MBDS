@@ -8,7 +8,7 @@
 }
 
 .example-viewport {
-  height: 600px;
+  height: 700px;
   width: 100%;
   /*border: 1px solid black;*/
 }
@@ -19,4 +19,9 @@
 
 .a-not-a-link {
   text-decoration: none;
+}
+.admin-edition{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

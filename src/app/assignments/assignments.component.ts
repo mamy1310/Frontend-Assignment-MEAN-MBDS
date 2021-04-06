@@ -8,6 +8,7 @@ import {MatTab} from '@angular/material/tabs';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from "../shared/auth.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-assignments',
@@ -39,7 +40,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private ngZone: NgZone,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,private toast: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -132,6 +133,29 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     // this.assignments.splice(index, 1);
     this.assignmentsService.deleteAssignment(event).subscribe((message) => {
       console.log(message);
+    });
+  }
+  onDelete(assignmentTransmis): void {
+    this.assignmentsService
+      .deleteAssignment(assignmentTransmis)
+      .subscribe((reponse) => {
+        console.log(reponse.message);
+
+        // on cache l'affichage du détail
+        this.toast.success("Devoir supprimé");
+        // et on navigue vers la page d'accueil qui affiche la liste
+        this.router.navigate(['/home']);
+      });
+  }
+
+  onClickEdit(assignmentTransmis): void {
+    this.router.navigate(['/assignment', assignmentTransmis.id, 'edit'], {
+      queryParams: {
+        nom: 'Michel Buffa',
+        metier: 'Professeur',
+        responsable: 'MIAGE'
+      },
+      fragment: 'edition'
     });
   }
 
