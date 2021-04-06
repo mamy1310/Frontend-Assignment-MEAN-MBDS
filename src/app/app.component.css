@@ -1,0 +1,26 @@
+.title {
+    text-align: center;
+
+}
+.connexion{
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    background-color:#4ef542;
+}
+.admin-info {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 5px;
+    right: 15px;
+    
+}
+.peupler {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    color: white;
+    background-color:#4287f5;
+}
+
