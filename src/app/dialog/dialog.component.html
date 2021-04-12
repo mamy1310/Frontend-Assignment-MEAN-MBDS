@@ -1,9 +1,9 @@
 <h1 mat-dialog-title></h1>
 <div mat-dialog-content>
-  <p *ngIf="data.assignement.rendu; else msgNonRendu" style="text-align: center;font-size: 19px;">
+  <p *ngIf="!data.assignement.rendu; else msgRendu" style="text-align: center;font-size: 19px;">
     Voulez-vous <b><em>&quot;rendre&quot;</em></b> le devoir "{{data.assignement.matiere.nom}}"  de l'élève {{data.assignement.nom}}?
   </p>
-  <ng-template #msgNonRendu>
+  <ng-template #msgRendu>
     <p style="text-align: center;font-size: 19px;">
       Voulez-vous changer le devoir "{{data.assignement.matiere.nom}}"  de l'élève {{data.assignement.nom}} en <b><em>&quot;Non rendu&quot;</em></b>?
     </p>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Assignment } from '../assignment.model';
@@ -20,7 +22,7 @@ export class AssignmentDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,  private toast: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -73,6 +75,39 @@ export class AssignmentDetailComponent implements OnInit {
 
   onClickEdit(): void {
     this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit']);
+  }
+
+  rendreAssignement(): void {
+    console.log(this.assignmentTransmis.rendu);
+    this.openDialog(this.assignmentTransmis);
+  }
+  openDialog(assigment): void {
+    assigment.rendu=!assigment.rendu;
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {assignement: assigment}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if(result == undefined){
+        console.log("annulation"+  this.assignmentTransmis.rendu);
+        return;
+      }
+      result.rendu = !result.rendu;
+      this.assignmentsService.updateAssignment(result)
+      .subscribe(message => {
+        console.log(message);
+        this.toast.success('Modification du devoir reussi');
+        this.spinner.hide();
+        // et on navigue vers la page d'accueil
+      }, error => {
+        console.log('error edit assignement:');
+        console.log(error.error);
+        this.toast.error(error.error.message, 'Erreur de validation');
+        this.spinner.hide();
+      });
+    });
   }
 
 
