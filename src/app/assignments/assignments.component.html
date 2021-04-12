@@ -8,6 +8,9 @@
       <p style="margin-top: 20px;">Ajouter un devoir</p>
   </a>
 
+    <i *ngIf="isAdmin" style="text-align: center;">*faites glisser un devoir vers la gauche pour changer en "rendu" et vers la droite pour "non rendu"</i>
+  
+
   <mat-divider style="margin-top: 20px;"></mat-divider>
     <mat-tab-group  style="justify-content: center;" (selectedIndexChange)="onTabChanged($event)">
       <ngx-spinner
@@ -72,8 +75,8 @@
 
 
       <mat-tab label="Non rendu">
-        <cdk-virtual-scroll-viewport #scrollerNonRendu class="example-viewport" itemSize="50">
-          <mat-list *cdkVirtualFor="let a of assignmentsNonRendu">
+        <cdk-virtual-scroll-viewport cdkDropList #scrollerNonRendu class="example-viewport" itemSize="50">
+          <mat-list *cdkVirtualFor="let a of assignmentsNonRendu" style="margin-top:20px" cdkDrag   (cdkDragDropped)="dropDrag2($event,a)">
             <nav>
          
                 <mat-list-item class="row" style="height: 180px; padding-left: 20px;margin-bottom: 15px;">

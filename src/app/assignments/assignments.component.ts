@@ -10,9 +10,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from "../shared/auth.service";
 import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { MdDialog, MdDialogRef } from '@angular/material';
-
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
@@ -31,7 +30,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   hasNextPage: boolean;
   nextPage: number;
   isAdmin = false;
-  dialogRef: MdDialogRef<DialogComponent>;
+
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   @ViewChild('scrollerNonRendu') scrollerNonRendu: CdkVirtualScrollViewport;
   @ViewChild('matTabGroup') matTab: MatTab;
@@ -43,7 +42,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private ngZone: NgZone,
-    private spinner: NgxSpinnerService,private toast: ToastrService,public dialog: MdDialog
+    private spinner: NgxSpinnerService,private toast: ToastrService,public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -215,25 +214,49 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     console.log('event drag drop');
     if(this.authService.isAdmin){
         let x = event.distance.x;
-        this.openConfirmationDialog();
         if(assignement.rendu && x>=500){
           //edit non rendu
-        }else if(assignement.rendu && x<=0){
-          //edit rendu
+          this.openDialog(assignement);
+        }else if(!assignement.rendu && x<=0){
+          this.openDialog(assignement);
         }
     }
   }
-  openConfirmationDialog() {
-    this.dialogRef = this.dialog.open(DialogComponent, {
-      disableClose: false
+  dropDrag2(event:CdkDragDrop<any>,assignement:Assignment){
+    console.log('event drag drop2');
+    if(this.authService.isAdmin){
+        let x = event.distance.x;
+        if(assignement.rendu && x>=500){
+          //edit non rendu
+          this.openDialog(assignement);
+        }else if(!assignement.rendu && x<=0){
+          this.openDialog(assignement);
+        }
+    }
+  }
+  openDialog(assigment): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {assignement:assigment}
     });
-    this.dialogRef.componentInstance.confirmMessage = "Are you sure you want to delete?"
 
-    this.dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        // do confirmation actions
-      }
-      this.dialogRef = null;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      result.rendu = !result.rendu;
+      this.assignmentsService.updateAssignment(result)
+      .subscribe(message => {
+        console.log(message);
+        this.toast.success("Modification du devoir reussi");
+        this.spinner.hide();
+        // et on navigue vers la page d'accueil
+        window.location.reload();
+      },error =>{
+        console.log("error edit assignement:");
+        console.log(error.error);
+        this.toast.error(error.error.message, "Erreur de validation");
+        this.spinner.hide();
+      });
     });
   }
 }
