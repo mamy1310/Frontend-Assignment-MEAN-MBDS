@@ -47,10 +47,10 @@ export class AssignmentDetailComponent implements OnInit {
         console.log(reponse.message);
         // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(['/home']);
-      },error =>{
-        console.log("error edit assignement:");
+      }, error => {
+        console.log('error edit assignement:');
         console.log(error.error);
-        this.toast.error(error.error.message, "Erreur de validation");
+        this.toast.error(error.error.message, 'Erreur de validation');
         this.spinner.hide();
       });
 
@@ -65,7 +65,7 @@ export class AssignmentDetailComponent implements OnInit {
 
         // on cache l'affichage du détail
         this.assignmentTransmis = null;
-        this.toast.success("Devoir supprimé");
+        this.toast.success('Devoir supprimé');
         // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(['/home']);
       });
