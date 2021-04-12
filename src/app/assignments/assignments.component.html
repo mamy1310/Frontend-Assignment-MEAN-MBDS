@@ -1,19 +1,21 @@
 <main class="container">
+
+  <h2 class="title-section">Liste des devoirs</h2>
   <a routerLink="/add" class="ajouterBtn" *ngIf="isAdmin">
     <span style="font-size: 60px  !important" class="material-icons">
       add_circle
       </span>
+      <p style="margin-top: 20px;">Ajouter un devoir</p>
   </a>
-  <h1>Liste des assignments</h1>
-  <mat-divider></mat-divider>
-    <mat-tab-group (selectedIndexChange)="onTabChanged($event)">
+  <mat-divider style="margin-top: 20px;"></mat-divider>
+    <mat-tab-group  style="justify-content: center;" (selectedIndexChange)="onTabChanged($event)">
       <ngx-spinner
         size="medium"
         [fullScreen]="false"
       ></ngx-spinner>
       <mat-tab label="Rendu">
         <cdk-virtual-scroll-viewport #scroller class="example-viewport" itemSize="50">
-          <mat-list *cdkVirtualFor="let a of assignmentsRendu">
+          <mat-list *cdkVirtualFor="let a of assignmentsRendu" style="margin-top:20px">
             <nav>
               
                 <mat-list-item class="row" style="height: 180px; padding-left: 20px;margin-bottom: 15px;">
@@ -32,8 +34,8 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-5">
-                          <img style="width: 50px; margin: 0; float: right" src="assets/images/{{a.matiere.image_prof}}"
+                        <div class="">
+                          <img style="width: 80px;  position: absolute;right: 20px;top: 10px;" src="assets/images/{{a.matiere.image_prof}}"
                                 alt="...">
                         </div>
                       </mat-card-header>
@@ -41,16 +43,16 @@
                     
                     <mat-card-content>
                       <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
-                      <div class="row">
-                        <div class="col-md-2" style="font-size: 15px">Auteur:</div>
-                        <div class="col-md-8" style="font-size: 20px">
+                      <div class="row " style="margin-left:20px;">
+                        <div class="col-md-1" style="font-size: 15px;color: black;">Eleve:</div>
+                        <div class="col-md-2" style="font-size: 15px;color: black;text-align: left;">
                           <span style="padding-bottom: 5px">{{a.nom}}</span>
                         </div>
                       </div>
                       </a>
                       <div class="admin-edition">
                         
-                        <button style="" [disabled]="!authService.isAdmin" mat-stroked-button  (click)="onClickEdit(a)"> <span class="material-icons">
+                        <button style="margin-left: 30px;{{authService.isAdmin ? 'color:#f09605':''}}" [disabled]="!authService.isAdmin" mat-stroked-button  (click)="onClickEdit(a)"> <span class="material-icons">
                           edit
                           </span> </button>
                         <button [disabled]="!authService.isAdmin" mat-stroked-button color="warn" (click)="onDelete(a)"><span class="material-icons">
@@ -89,24 +91,24 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-5">
-                        <img style="width: 50px; margin: 0; float: right" src="assets/images/{{a.matiere.image_prof}}"
+                      <div class="">
+                        <img style="width: 80px;  position: absolute;right: 20px;top: 10px;" src="assets/images/{{a.matiere.image_prof}}"
                              alt="...">
                       </div>
                     </mat-card-header>
                     </a>
                     <mat-card-content>
                       <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
-                      <div class="row">
-                        <div class="col-md-2" style="font-size: 15px">Auteur:</div>
-                        <div class="col-md-8" style="font-size: 20px">
+                      <div class="row " style="margin-left:20px;">
+                        <div class="col-md-1" style="font-size: 15px;color: black;">Eleve:</div>
+                        <div class="col-md-2" style="font-size: 15px;color: black;text-align: left;">
                           <span style="padding-bottom: 5px">{{a.nom}}</span>
                         </div>
                       </div>
                       </a>
                       <div class="admin-edition">
                         
-                        <button style="" [disabled]="!authService.isAdmin" mat-stroked-button  (click)="onClickEdit(a)"> <span class="material-icons">
+                        <button style="margin-left: 30px;{{authService.isAdmin ? 'color:#f09605':''}}" [disabled]="!authService.isAdmin" mat-stroked-button  (click)="onClickEdit(a)"> <span class="material-icons">
                           edit
                           </span> </button>
                         <button [disabled]="!authService.isAdmin" mat-stroked-button color="warn" (click)="onDelete(a)"><span class="material-icons">
@@ -114,6 +116,7 @@
                           </span></button>                   
                       </div>
                     </mat-card-content>
+                  
                   </mat-card>
                 </mat-list-item>
         

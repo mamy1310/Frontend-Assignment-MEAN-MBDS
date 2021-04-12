@@ -6,18 +6,22 @@
 </ngx-spinner>
 <h1 class="title">
 <nav>
-  <a routerLink="/home" >{{title}}</a>
+  <a routerLink="/home" style="color: #ff6347  !important;">{{title}}</a>
 </nav>
 </h1>
-<button mat-raised-button *ngIf="!isAdmin" class="connexion"  (click)="login()">Se connecter</button>
-<button mat-raised-button *ngIf="isAdmin"   (click)="peuplerBD()" class="peupler">PeuplerBD</button>
+<button mat-raised-button *ngIf="!isAdmin" class="connexion"  (click)="login()">Connexion <span class="material-icons">
+  login
+  </span></button>
+<button mat-raised-button *ngIf="isAdmin"   (click)="peuplerBD()" class="peupler">Peupler la base de données</button>
 <div class="admin-info">
 
 
   
   
   <h3 style="margin-top: 5px;margin-right: 15px" *ngIf="isAdmin">{{authService.admin.nom}}</h3>
-  <button mat-raised-button style="height: 40px;" *ngIf="isAdmin" color="warn" (click)="logout()">Se deconnecter</button>
+  <button mat-raised-button style="height: 40px;" *ngIf="isAdmin" color="warn" (click)="logout()"><span class="material-icons">
+    logout
+    </span></button>
 </div>
 </div>
 

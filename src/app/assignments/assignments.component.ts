@@ -149,14 +149,8 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   }
 
   onClickEdit(assignmentTransmis): void {
-    this.router.navigate(['/assignment', assignmentTransmis.id, 'edit'], {
-      queryParams: {
-        nom: 'Michel Buffa',
-        metier: 'Professeur',
-        responsable: 'MIAGE'
-      },
-      fragment: 'edition'
-    });
+    this.router.navigate(['/assignment', assignmentTransmis.id, 'edit']
+      );
   }
 
   premierePage(): void {

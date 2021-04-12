@@ -13,7 +13,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class AppComponent implements OnInit, AfterViewInit {
 
   loading = false;
-  title = 'Application de gestion des assignments';
+  title = 'Application de gestion des devoirs';
   isLogin = false;
   isAdmin = false;
   admin: User;
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                   if (event instanceof NavigationStart) {
                       console.log('event url');
                       console.log(event.url);
-                      this.isLogin = event.url === '/login' || event.url === '/login?' ;
+                      this.isLogin = event.url.includes( '/login' );
                   }
                 });
     }

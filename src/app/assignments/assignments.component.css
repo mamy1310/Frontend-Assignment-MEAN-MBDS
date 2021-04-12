@@ -4,7 +4,9 @@
 }
 
 .ajouterBtn {
-  align-self: flex-end;
+  display: flex;
+  margin: auto;
+  color: #1d990c  !important;
 }
 
 .example-viewport {
@@ -21,6 +23,7 @@
   text-decoration: none;
 }
 .admin-edition{
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -1,8 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%;background-color: #fcfafa; }
 body { font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .card-icon {
   width: 20px
+}
+.title-section{
+  text-align: center;
+  margin-top: 50px;
+}
+.mat-tab-labels {
+  display: flex  !important;
+  justify-content: center !important;
+
+}
+.mat-tab-label .mat-tab-label-content{
+  color: black;
+  
 }
