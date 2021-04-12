@@ -1,6 +1,13 @@
 <h1 mat-dialog-title></h1>
 <div mat-dialog-content>
-  <p style="text-align: center;font-size: 19px;">Voulez vous <b>{{data.assignement.rendu?'ne pas rendre':'rendre'}}</b> le devoir "{{data.assignement.matiere.nom}}"  de l'eleve {{data.assignement.nom}} </p>
+  <p *ngIf="data.assignement.rendu; else msgNonRendu" style="text-align: center;font-size: 19px;">
+    Voulez-vous <b><em>&quot;rendre&quot;</em></b> le devoir "{{data.assignement.matiere.nom}}"  de l'élève {{data.assignement.nom}}?
+  </p>
+  <ng-template #msgNonRendu>
+    <p style="text-align: center;font-size: 19px;">
+      Voulez-vous changer le devoir "{{data.assignement.matiere.nom}}"  de l'élève {{data.assignement.nom}} en <b><em>&quot;Non rendu&quot;</em></b>?
+    </p>
+  </ng-template>
   <mat-form-field *ngIf="!data.assignement.rendu">
     <mat-label>Il faut entrer une note</mat-label>
     <input matInput [(ngModel)]="note">

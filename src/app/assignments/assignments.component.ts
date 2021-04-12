@@ -7,7 +7,7 @@ import { Assignment } from './assignment.model';
 import {MatTab} from '@angular/material/tabs';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthService} from "../shared/auth.service";
+import {AuthService} from '../shared/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -42,7 +42,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private ngZone: NgZone,
-    private spinner: NgxSpinnerService,private toast: ToastrService,public dialog: MatDialog
+    private spinner: NgxSpinnerService, private toast: ToastrService, public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -144,7 +144,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
         console.log(reponse.message);
 
         // on cache l'affichage du détail
-        this.toast.success("Devoir supprimé");
+        this.toast.success('Devoir supprimé');
         // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(['/home']);
       });
@@ -198,27 +198,27 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     this.page = 1;
     this.getAssignments(event === 0);
   }
-  
+
   // tslint:disable-next-line:typedef
   drop(event: CdkDragDrop<string[]>) {
-    console.log("event drop");
+    console.log('event drop');
     console.log(event);
     if (event.previousContainer === event.container) {
-      console.log("same");
+      console.log('same');
     } else {
-      console.log("not same");
+      console.log('not same');
     }
   }
   // tslint:disable-next-line:typedef
-  dropDrag(event:CdkDragDrop<any>,assignement:Assignment){
+  dropDrag(event: CdkDragDrop<any>, assignement: Assignment){
     console.log('event drag drop');
     console.log(event);
-    if(this.authService.isAdmin){
-        let x = event.distance.x;
-        if(assignement.rendu && x>=50){
-          //edit non rendu
+    if (this.authService.isAdmin){
+        const x = event.distance.x;
+        if (assignement.rendu && x >= 50){
+          // edit non rendu
           this.openDialog(assignement);
-        }else if(!assignement.rendu && x<=0){
+        }else if (!assignement.rendu && x <= 0){
           this.openDialog(assignement);
         }
     }
@@ -228,7 +228,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   openDialog(assigment): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: {assignement:assigment}
+      data: {assignement: assigment}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -238,14 +238,14 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
       this.assignmentsService.updateAssignment(result)
       .subscribe(message => {
         console.log(message);
-        this.toast.success("Modification du devoir reussi");
+        this.toast.success('Modification du devoir reussi');
         this.spinner.hide();
         // et on navigue vers la page d'accueil
-        this.getAssignments(!result.rendu)
-      },error =>{
-        console.log("error edit assignement:");
+        this.getAssignments(!result.rendu);
+      }, error => {
+        console.log('error edit assignement:');
         console.log(error.error);
-        this.toast.error(error.error.message, "Erreur de validation");
+        this.toast.error(error.error.message, 'Erreur de validation');
         this.spinner.hide();
       });
     });
