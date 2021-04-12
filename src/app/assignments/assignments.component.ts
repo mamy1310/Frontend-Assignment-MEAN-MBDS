@@ -212,28 +212,19 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line:typedef
   dropDrag(event:CdkDragDrop<any>,assignement:Assignment){
     console.log('event drag drop');
+    console.log(event);
     if(this.authService.isAdmin){
         let x = event.distance.x;
-        if(assignement.rendu && x>=500){
+        if(assignement.rendu && x>=50){
           //edit non rendu
           this.openDialog(assignement);
         }else if(!assignement.rendu && x<=0){
           this.openDialog(assignement);
         }
     }
+    event.item.reset();
   }
-  dropDrag2(event:CdkDragDrop<any>,assignement:Assignment){
-    console.log('event drag drop2');
-    if(this.authService.isAdmin){
-        let x = event.distance.x;
-        if(assignement.rendu && x>=500){
-          //edit non rendu
-          this.openDialog(assignement);
-        }else if(!assignement.rendu && x<=0){
-          this.openDialog(assignement);
-        }
-    }
-  }
+
   openDialog(assigment): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
@@ -250,7 +241,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
         this.toast.success("Modification du devoir reussi");
         this.spinner.hide();
         // et on navigue vers la page d'accueil
-        window.location.reload();
+        this.getAssignments(!result.rendu)
       },error =>{
         console.log("error edit assignement:");
         console.log(error.error);

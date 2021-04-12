@@ -76,7 +76,7 @@
 
       <mat-tab label="Non rendu">
         <cdk-virtual-scroll-viewport cdkDropList #scrollerNonRendu class="example-viewport" itemSize="50">
-          <mat-list *cdkVirtualFor="let a of assignmentsNonRendu" style="margin-top:20px" cdkDrag   (cdkDragDropped)="dropDrag2($event,a)">
+          <mat-list *cdkVirtualFor="let a of assignmentsNonRendu" style="margin-top:20px" cdkDrag   (cdkDragDropped)="dropDrag($event,a)">
             <nav>
          
                 <mat-list-item class="row" style="height: 180px; padding-left: 20px;margin-bottom: 15px;">
