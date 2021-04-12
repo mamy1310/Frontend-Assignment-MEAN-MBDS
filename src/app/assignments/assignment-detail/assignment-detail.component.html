@@ -18,8 +18,8 @@
       elève: {{assignmentTransmis.nom}}
     </mat-card-content>
     <mat-card-subtitle><p>{{assignmentTransmis.dateDeRendu | date}}</p>
-      <mat-checkbox [checked]="assignmentTransmis.rendu" [disableRipple]="assignmentTransmis.rendu"
-      disabled>
+      <mat-checkbox  #checkbox (click)='rendreAssignement()' [disabled]="!authService.isAdmin" [(ngModel)]="assignmentTransmis.rendu"
+      >
         Rendu
       </mat-checkbox>
     </mat-card-subtitle>
