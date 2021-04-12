@@ -33,6 +33,8 @@ import { LoginComponent } from './login/login.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ToastrModule} from "ngx-toastr";
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DialogComponent } from './dialog/dialog.component';
 
 const routes: Routes = [
   {
@@ -73,7 +75,8 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssigmentComponent,
-    LoginComponent
+    LoginComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -85,9 +88,10 @@ const routes: Routes = [
     MatSlideToggleModule, MatTabsModule, MatStepperModule,
     RouterModule.forRoot(routes), HttpClientModule, ScrollingModule, NgbModule,
     NgxSpinnerModule, ReactiveFormsModule, NgSelectModule, ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,DragDropModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

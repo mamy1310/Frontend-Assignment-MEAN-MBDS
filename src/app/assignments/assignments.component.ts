@@ -9,6 +9,9 @@ import {MatProgressBar} from '@angular/material/progress-bar';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from "../shared/auth.service";
 import { ToastrService } from 'ngx-toastr';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-assignments',
@@ -28,7 +31,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   hasNextPage: boolean;
   nextPage: number;
   isAdmin = false;
-
+  dialogRef: MdDialogRef<DialogComponent>;
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   @ViewChild('scrollerNonRendu') scrollerNonRendu: CdkVirtualScrollViewport;
   @ViewChild('matTabGroup') matTab: MatTab;
@@ -40,7 +43,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private ngZone: NgZone,
-    private spinner: NgxSpinnerService,private toast: ToastrService,
+    private spinner: NgxSpinnerService,private toast: ToastrService,public dialog: MdDialog
   ) {}
 
   ngOnInit(): void {
@@ -195,5 +198,42 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   onTabChanged(event): void {
     this.page = 1;
     this.getAssignments(event === 0);
+  }
+  
+  // tslint:disable-next-line:typedef
+  drop(event: CdkDragDrop<string[]>) {
+    console.log("event drop");
+    console.log(event);
+    if (event.previousContainer === event.container) {
+      console.log("same");
+    } else {
+      console.log("not same");
+    }
+  }
+  // tslint:disable-next-line:typedef
+  dropDrag(event:CdkDragDrop<any>,assignement:Assignment){
+    console.log('event drag drop');
+    if(this.authService.isAdmin){
+        let x = event.distance.x;
+        this.openConfirmationDialog();
+        if(assignement.rendu && x>=500){
+          //edit non rendu
+        }else if(assignement.rendu && x<=0){
+          //edit rendu
+        }
+    }
+  }
+  openConfirmationDialog() {
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      disableClose: false
+    });
+    this.dialogRef.componentInstance.confirmMessage = "Are you sure you want to delete?"
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        // do confirmation actions
+      }
+      this.dialogRef = null;
+    });
   }
 }

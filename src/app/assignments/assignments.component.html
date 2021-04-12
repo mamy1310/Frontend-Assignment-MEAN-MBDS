@@ -7,6 +7,7 @@
       </span>
       <p style="margin-top: 20px;">Ajouter un devoir</p>
   </a>
+
   <mat-divider style="margin-top: 20px;"></mat-divider>
     <mat-tab-group  style="justify-content: center;" (selectedIndexChange)="onTabChanged($event)">
       <ngx-spinner
@@ -14,11 +15,11 @@
         [fullScreen]="false"
       ></ngx-spinner>
       <mat-tab label="Rendu">
-        <cdk-virtual-scroll-viewport #scroller class="example-viewport" itemSize="50">
-          <mat-list *cdkVirtualFor="let a of assignmentsRendu" style="margin-top:20px">
-            <nav>
+        <cdk-virtual-scroll-viewport cdkDropList #scroller class="example-viewport" itemSize="50" >
+          <mat-list    *cdkVirtualFor="let a of assignmentsRendu" style="margin-top:20px" cdkDrag cdkDragLockAxis="x" [cdkDragData]="a" (cdkDragDropped)="dropDrag($event,a)">
+            <nav  >
               
-                <mat-list-item class="row" style="height: 180px; padding-left: 20px;margin-bottom: 15px;">
+                <mat-list-item  class="row" style="height: 180px; padding-left: 20px;margin-bottom: 15px;">
                   <mat-card class="example-card col-md-12" style="">
                     <a routerLink="/assignment/{{a.id}}" class="a-not-a-link">
                       <mat-card-header class="row mb-4" >
