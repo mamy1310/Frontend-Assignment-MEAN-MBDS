@@ -30,6 +30,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   hasNextPage: boolean;
   nextPage: number;
   isAdmin = false;
+  searchQuery = '';
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   @ViewChild('scrollerNonRendu') scrollerNonRendu: CdkVirtualScrollViewport;
@@ -59,7 +60,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   getAssignments(rendu: boolean): void {
     this.spinner.show();
     this.assignmentsService
-      .getAssignmentsPagine(this.page, this.limit, rendu)
+      .getAssignmentsPagine(this.page, this.limit, rendu,this.searchQuery)
       .subscribe((data) => {
         if (rendu) {
           this.assignmentsRendu = data.docs;
@@ -78,11 +79,15 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
         this.spinner.hide();
       });
   }
-
+  search(): void{
+      console.log("SearchQuery:"+this.searchQuery);
+      this.getAssignments(true);
+      this.getAssignments(false);
+  }
   getPlusDAssignmentsPourScrolling(rendu: boolean): void {
     this.spinner.show();
     this.assignmentsService
-      .getAssignmentsPagine(this.page, this.limit, rendu)
+      .getAssignmentsPagine(this.page, this.limit, rendu,this.searchQuery)
       .subscribe((data) => {
         // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
         // on va les ajouter à ceux déjà présents...

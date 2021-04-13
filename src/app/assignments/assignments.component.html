@@ -1,6 +1,14 @@
 <main class="container">
 
   <h2 class="title-section">Liste des devoirs</h2>
+  <div style="margin:auto;margin-bottom: 5px;">
+    <mat-form-field>
+      <input matInput placeholder="Nom de l'élève"  [(ngModel)]="searchQuery" name="searchQuery">
+    </mat-form-field>
+    <span (click)="search()" style="margin-top: 5px;" class="material-icons">
+      search
+      </span>
+  </div>
   <a routerLink="/add" class="ajouterBtn" *ngIf="isAdmin">
     <span style="font-size: 60px  !important" class="material-icons">
       add_circle
@@ -8,9 +16,10 @@
       <p style="margin-top: 20px;">Ajouter un devoir</p>
   </a>
 
+
     <i *ngIf="isAdmin" style="text-align: center;">*faites glisser un devoir vers la gauche pour changer en "rendu" et vers la droite pour "non rendu"</i>
   
-
+  
   <mat-divider style="margin-top: 20px;"></mat-divider>
     <mat-tab-group  style="justify-content: center;" (selectedIndexChange)="onTabChanged($event)">
       <ngx-spinner
