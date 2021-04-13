@@ -23,8 +23,8 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri);
   }
 
-  getAssignmentsPagine(page: number, limit: number, rendu): Observable<any> {
-    const query = '?page=' + page + '&limit=' + limit + '&rendu=' + rendu;
+  getAssignmentsPagine(page: number, limit: number, rendu,searchQuery): Observable<any> {
+    const query = '?page=' + page + '&limit=' + limit + '&rendu=' + rendu + '&search=' + searchQuery;
     return this.http.get<Assignment[]>(this.uri + query);
   }
 
