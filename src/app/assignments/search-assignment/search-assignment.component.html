@@ -1,3 +1,27 @@
+<form ngForm>
+  <div class="row">
+      <mat-form-field class="col-6">
+        <mat-label>Date de rendu</mat-label>
+        <input matInput
+               [matDatepicker]="picker"
+                [(ngModel)]="toSearch.dateDeRendu"
+                name="dateDeRendu">
+
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-6">
+        <mat-label>Nom</mat-label>
+        <input  matInput
+                placeholder="Nom de l'élève"
+                [(ngModel)]="toSearch.nom"
+                name="nom">
+      </mat-form-field>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary col-1 ml-2" (click)="onSearchSubmit()">Rechercher</button>
+  </div>
+</form>
 <app-card-assignment
   [assignment] = "assignment"
   *ngFor="let assignment of searchResults"></app-card-assignment>

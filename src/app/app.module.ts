@@ -35,6 +35,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {ToastrModule} from 'ngx-toastr';
 import { SearchAssignmentComponent } from './assignments/search-assignment/search-assignment.component';
 import { CardAssignmentComponent } from './assignments/card-assignment/card-assignment.component';
+import {DatePipe} from "@angular/common";
 
 const routes: Routes = [
   {
@@ -95,7 +96,7 @@ const routes: Routes = [
     NgxSpinnerModule, ReactiveFormsModule, NgSelectModule, ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

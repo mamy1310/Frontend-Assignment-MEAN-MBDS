@@ -5,6 +5,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {Assignment} from '../assignments/assignment.model';
 import {LoggingService} from './logging.service';
 import {assignmentsGeneres} from './data';
+import {DatePipe} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import {assignmentsGeneres} from './data';
 export class AssignmentsService {
   assignments: Assignment[];
 
-  constructor(private loggingService: LoggingService, private http: HttpClient) { }
+  constructor(private loggingService: LoggingService, private http: HttpClient, public datepipe: DatePipe) { }
 
   uri = 'http://localhost:8010/api/assignments';
   // uri = 'https://backend-assignment-mbds-mean.herokuapp.com/api/assignments';
@@ -23,8 +24,16 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri);
   }
 
-  searchAssignments(nom?: string, dateRenduMax?: Date): Observable<Assignment[]> {
-    const query = '?';
+  searchAssignments(a: Assignment): Observable<Assignment[]> {
+    let query = '?';
+    if (a.nom) { query += 'nom=' + a.nom; }
+    if (a.dateDeRendu) {
+      if (query[query.length - 1] !== '?') {
+        query += '&';
+      }
+      query += `dateDeRendu=${this.datepipe.transform(a.dateDeRendu, 'yyyy-MM-date')}`;
+    }
+    console.log(query);
     return this.http.get<Assignment[]>(this.uri + '/search' + query);
   }
 
