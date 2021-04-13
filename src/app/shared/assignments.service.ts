@@ -139,6 +139,7 @@ export class AssignmentsService {
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
+      nouvelAssignment.remarque = '';
       const listeProfs = [
         {nom: 'Buffa', image: 'buffa.jpg'},
         {nom: 'Grin', image: 'grin.jpg'},

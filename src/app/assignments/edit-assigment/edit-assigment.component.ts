@@ -23,6 +23,7 @@ export class EditAssigmentComponent implements OnInit {
   matiere: Matiere;
   note : number;
   rendu = false;
+  remarque:string = '';
   matieres: Matiere[] = [];
   @ViewChild('selectMatieres') selectMatieres;
   constructor(
@@ -88,7 +89,8 @@ export class EditAssigmentComponent implements OnInit {
       this.dateDeRendu = assignment.dateDeRendu;
       this.rendu = assignment.rendu;
       this.note = assignment.note;
-      this.matiere = assignment.matiere
+      this.matiere = assignment.matiere;
+      this.remarque = assignment.remarque;
       this.loadMatieres();
 
     });
@@ -104,6 +106,7 @@ export class EditAssigmentComponent implements OnInit {
     this.assignment.matiere = this.matiere;
     this.assignment.note = this.note;
     this.assignment.rendu = this.rendu;
+    this.assignment.remarque = this.remarque;
     console.log("assignement modifie");
     console.log(this.assignment);
     this.spinner.show();

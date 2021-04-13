@@ -9,6 +9,7 @@ import { Assignment } from '../assignments/assignment.model';
 })
 export class DialogComponent implements OnInit {
   note:number;
+  remarque:string = '';
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
@@ -21,6 +22,7 @@ export class DialogComponent implements OnInit {
   }
   onYesClick():void{
     this.data.assignement.note = this.note;
+    this.data.assignement.remarque = this.remarque;
     this.dialogRef.close(this.data.assignement);
   }
 

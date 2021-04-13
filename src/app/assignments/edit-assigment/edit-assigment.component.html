@@ -31,6 +31,10 @@
         </ng-select>
 
       <mat-slide-toggle style="margin-bottom: 40px;" [(ngModel)]="rendu" [ngModelOptions]="{standalone: true}">rendu</mat-slide-toggle>
+      <mat-form-field >
+        <textarea matInput placeholder="Remarques" [(ngModel)]="remarque" name="remarque">
+        </textarea>
+      </mat-form-field>
       <button class="col-3 bouton_modifier" style="margin:auto" mat-raised-button
       >
         Modifier le devoir
