@@ -1,8 +1,7 @@
 # Liste des fonctionnalites
-
 1. Liste des devoirs repartis en deux onglets "Rendu" et "Non Rendu" avec Scrolling Infini
 2. Recherche de devoirs par nom de l'eleve
-3. 3. Ajout d'un devoir (en etant connecte uniquement)
+3.  Ajout d'un devoir (en etant connecte uniquement)
 4. Connexion en tant que professeur (JWT) et deconnexion
   a. Utilisateur:tokiniainaherve.andrianarison@gmail.com
   b. Mot de passe:tokypass
