@@ -1,27 +1,29 @@
-# AssignmentApp
+# Liste des fonctionnalites
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
+1. Liste des devoirs repartis en deux onglets "Rendu" et "Non Rendu" avec Scrolling Infini
+2. Recherche de devoirs par nom de l'eleve
+3. 3. Ajout d'un devoir (en etant connecte uniquement)
+4. Connexion en tant que professeur (JWT) et deconnexion
+  a. Utilisateur:tokiniainaherve.andrianarison@gmail.com
+  b. Mot de passe:tokypass
+5.Suppression et modification d'un devoir (en etant connecte uniquement)
+6.Peupler la base de donnees de 500 devoirs (en etant connecte uniquement)
+7.Permet de glisser un devoir rendu en non rendu depuis la liste des devoirs (drag)
+8.Divers:
+  a.message d'erreur lors de l'echec ou succes d'un traitement
+  b.ajout d'un loader
+  c.dialogue de confirmation qui apparait lorsque l'on rend un devoir
 
-## Development server
+## Developpenent en local
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1.Cloner ce projet frontEnd et le projet backend : https://github.com/mamy1310/Backend-Assignment-MEAN-MBDS.git 
+2.Dans le projet frontEnd, changez la variable "uri" dans "src/app/shared/assignments.service.ts" et "src/app/shared/auth.service.ts"  en http://localhost:8010/api/assignments
+3.lancer la commande "node server.js" dans le projet backend
+4.lancer la commande "ng serve" dans le projet frontEnd
+5.Ouvrir le navigateur et accedez a http://localhost:4200/
 
-## Code scaffolding
+## Sources externes utilises
+1.JWT:https://www.freecodecamp.org/news/securing-node-js-restful-apis-with-json-web-tokens-9f811a92bb52/
+2.Angular drap and drop:https://material.angular.io/cdk/drag-drop/overview
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
