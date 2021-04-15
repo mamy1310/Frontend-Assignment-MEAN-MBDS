@@ -17,9 +17,10 @@
 
 1.&nbsp;&nbsp;Cloner ce projet frontEnd et le projet backend : https://github.com/mamy1310/Backend-Assignment-MEAN-MBDS.git  <br /><br />
 2.&nbsp;&nbsp;Dans le projet frontEnd, changez la variable "uri" dans "src/app/shared/assignments.service.ts" et "src/app/shared/auth.service.ts"  en http://localhost:8010/api/assignments <br /><br />
-3.&nbsp;&nbsp;lancer la commande "node server.js" dans le projet backend <br /><br />
-4.&nbsp;&nbsp;lancer la commande "ng serve" dans le projet frontEnd <br /><br />
-5.&nbsp;&nbsp;Ouvrir le navigateur et accedez a http://localhost:4200/ <br /><br />
+3.&nbsp;&nbsp;lancer la commande "npm install" dans le projet backend et frontend <br /><br />
+4.&nbsp;&nbsp;lancer la commande "node server.js" dans le projet backend <br /><br />
+5.&nbsp;&nbsp;lancer la commande "ng serve" dans le projet frontEnd <br /><br />
+6.&nbsp;&nbsp;Ouvrir le navigateur et accedez a http://localhost:4200/ <br /><br />
 
 ## Sources externes utilises
 1.&nbsp;&nbsp;JWT:https://www.freecodecamp.org/news/securing-node-js-restful-apis-with-json-web-tokens-9f811a92bb52/ <br /><br />
