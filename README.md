@@ -8,7 +8,7 @@
 5.&nbsp;&nbsp;Suppression et modification d'un devoir (en etant connecte uniquement) <br /><br />
 6.&nbsp;&nbsp;Peupler la base de donnees de 500 devoirs (en etant connecte uniquement) <br /><br />
 7.&nbsp;&nbsp;Permet de glisser un devoir rendu en non rendu depuis la liste des devoirs (drag) <br /><br />
-8.&nbsp;&nbsp;Divers: <br />
+8.&nbsp;&nbsp;Divers: <br /><br />
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.message d'erreur lors de l'echec ou succes d'un traitement <br /><br />
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.ajout d'un loader <br /><br />
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.dialogue de confirmation qui apparait lorsque l'on rend un devoir <br /><br />
